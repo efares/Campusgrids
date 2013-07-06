@@ -1,0 +1,209 @@
+html, body, div, span, object, iframe, a, h1, h2, h3, h4, h5, h6, p, del, dfn, em, img, ins, kbd, q, samp, small, strong, b, i, dl, dt, dd, ol, ul, li, fieldset, form, label, table, tbody, tfoot, thead, tr, th, td, article, aside, footer, header, nav, section {
+  margin:0;
+  padding:0;
+  border:0;
+  outline:0;
+  font-size:100%;
+  vertical-align:baseline;
+  background:transparent;
+}
+/*------------------------------- Calendar Styling ---------------------------------------*/
+.calendar-table {
+    width: 100%;
+    padding:0px;
+    margin:0px;
+    margin-top: 4px;
+    border-collapse: collapse;
+}
+.calendar-table th, .calendar-table td {
+  border-right: solid 1px #D0D0D0;
+  border-left: solid 1px #D0D0D0;
+}
+.calendar-table tr {
+  border-bottom: solid 1px #D0D0D0;
+}
+.calendar-monthName {
+    height: 40px;
+    vertical-align:middle;
+}
+.calendar-daysOfWeek {
+    width: 14.2%;
+    height: 30px;
+    text-align:center;
+    vertical-align:middle;
+    font-weight: bold;
+}
+.calendar-dayNumber {
+    height: 60px;
+    width: 14.2%;
+    text-align: center;
+    vertical-align:middle;
+    font-size: small;
+}
+.calendar-currentDay {
+    height: 60px;
+    width: 14.2%;
+    text-align: center;
+    vertical-align:middle;
+    font-size: small;
+    background-color: lightblue;
+}
+.numOfEvents {
+    text-decoration: none;
+    color: red;
+    font-size: 0.7em;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+}
+.divAddNewEvent {
+  margin-top: -4px;
+  margin-left: auto;
+  margin-right: auto;
+  width:70%;
+}
+#previousMonth {
+  margin-right: 7px;
+}
+#nextMonth {
+  margin-left: 7px;
+}
+/*------------------------------- End of Calendar Styling ---------------------------------------*/
+.profileButtons {
+    margin: 1px;
+    background-color: lightgrey;
+    height: 25%;
+}
+.headerTitle {
+/*Style the page titles here*/
+}
+body {
+  -webkit-text-size-adjust:none;
+  font-family:sans-serif;
+}
+h1 {
+  font-size: 36px;
+  margin: 15px;
+  text-align: center;
+  color: #666;
+}
+h2 {
+  font-size:14px;
+  font-weight:bold;
+  color:#3c3c3c;
+  margin:20px 10px 10px;
+}
+a {
+  margin: 0 0 0 10px;
+  font-size: 18px;
+  color: #3c3c3c;
+}
+p {
+  font-size: 1.1em;
+}
+td {
+  vertical-align: middle;
+}
+.goBack {
+  font-size: 1em;
+  padding-top: 15px;
+  padding-bottom: 5px;
+  margin-right: 5px;
+  text-align: center;
+}
+.goBack a {
+  font-size: 1em;
+}
+small {
+  margin:0 10px 30px;
+  display:block;
+  font-size:12px;
+}
+.item {
+  margin:10px 10px;
+  padding: 0;
+  border: solid 5px #262626;
+  max-width: 100%;
+  -webkit-border-radius: 5px;
+  -mox-border-radius: 5px;
+  border-radius: 5px;
+}
+.navImg {
+  max-width: 24px;
+  width: 24px;
+}
+.center {
+  margin: 0 auto;
+}
+.image {
+  padding: 0;
+  margin: 0;
+}
+.pushDown {
+  height: 60%;
+}
+.info {
+  background-color: #262626;
+  opacity: 0.95;
+  max-width: 100%;
+  height: 100px;
+  position: relative;
+  top: 5px;
+  padding: 0;
+  margin: 0;
+}
+.swiper-container {
+  margin: 0 auto;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-border-radius: 5px;
+  -mox-border-radius: 5px;
+  border-radius: 5px;
+  background-color: #262626;
+}
+/* Specify Swiper's Size: */
+.swiper-container .swiper-slide {
+  width: 100%;
+  height: 100%;
+  background-color: #262626;
+}
+.pushDown {
+  height: 60%;
+}
+.info {
+  background-color: #262626;
+  opacity: 0.95;
+  max-width: 100%;
+  height: 100px;
+  position: relative;
+  top: 5px;
+  padding: 2px;
+  margin: 0;
+  font-size: 0.9em;
+  letter-spacing: 1px;
+}
+.smallLogo {
+	padding: 2px;
+	height: 35px;
+	position: absolute;
+}
+[data-theme=b] .ui-icon,
+[data-theme=b] .ui-icon-searchfield:after {
+    background-image: url(themes/images/icons-18-black.png)
+}
+.error {
+  display: none;
+  color: red;
+}
+#content {
+  background-image: none;
+}
+.ui-panel-content-wrap {
+  background-image: none!important;
+}
+
+
+
+

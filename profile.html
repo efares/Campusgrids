@@ -1,0 +1,244 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>CampusGrids: Profile</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
+        <link rel="stylesheet" href="css/style.css" />
+        <link rel="stylesheet" href="css/themes/campus.min.css" />
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.0/jquery.mobile.structure-1.3.0.min.css" />
+        <link rel="stylesheet" href="css/font-awesome.css" />
+        <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+        <script src="http://code.jquery.com/mobile/1.3.0/jquery.mobile-1.3.0.min.js"></script>
+        <script type="text/javascript" src="js/CG.js"></script>
+    </head>
+
+<body>
+    <div data-role="page" id="profilePage" data-theme="a">
+        <!-- Header -->
+        <div data-role="panel" id="menuPanel" data-position="right" data-display="overlay" data-theme="b">    
+            <ul data-role="listview">
+                    <li>
+                        <a href="allClubs.html" data-ajax="false">All Clubs</a>
+                    </li>
+                    <li>
+                        <a href="allEvents.html" data-ajax="false">All Events</a>
+                    </li>
+                    <li>
+                        <a href="findFriends.html" data-ajax="false">Find Friends</a>
+                    </li>
+                    <!--<li>
+                        <a href="promote.html">Promote</a>
+                    </li>-->
+                    <li>
+                        <a href="settings.html" data-ajax="false">Settings</a>
+                    </li>
+                    <li>
+                        <a href="feedback.html" data-ajax="false">Feedback</a>
+                    </li>
+                    <li>
+                        <a href="linkAccounts.html" data-ajax="false">Link Accounts</a>
+                    </li>
+                </ul>
+                <!-- <a style="margin-top: 50px;" href="#" data-rel="close" data-role="button" data-icon="delete" data-iconpos="left">Close Menu</a> -->
+        </div>
+        <div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme="b">
+            <img src="img/logo_small.png" class="smallLogo">
+            <h1 class="headerTitle">Profile</h1>
+            <a id="header" href="#menuPanel" class="ui-btn-right"><i style="font-size: 1.4em;" class="icon-reorder"></i></a>
+        </div>
+        <!-- /header -->
+<!------------------------------- CONTENT ---------------------------------------------------------->
+        <!-- Default Content -->
+        <div data-role="content" id="defaultProfileContent" data-theme="a" style="padding:0px;margin:0px;">
+            <!-- Profile Picture -->
+            <div id="profilePicture" style="float:left;width:70%;height:200px;text-align:center;padding-top:15px;">
+                <img src="img/defaultprofile.png" />
+            </div>
+            <!-- Right side Buttons -->
+            <div id="rightSideButtons" style="text-align:center;float:right;width:30%;height:200px;">
+                <div id="members" class="profileButtons">
+                    <p id="numberOfMembers" style="font-weight:bold;display:inline;font-size:large"></p>
+                    <br />
+                    <p id="joinedStatment" style="display:inline;font-size:small"></p>
+                </div>
+                <div id="gridsThisJoined" class="profileButtons">
+                    <p id="numberOfGrids" style="font-weight:bold;display:inline;font-size:large"></p>
+                    <br />
+                    <p style="display:inline;font-size:small">Grids Joined</p>
+                </div>
+                <div id="messages" class="profileButtons">
+                    <img src="img/message_icon.png">
+                </div>
+                <div id="profileOptionsButton" class="profileButtons">
+                </div>
+            </div>
+            <!-- Name + Bio information -->
+            <div id="userInfo" style="float:left;width:70%;">
+                <div style="padding:15px;">
+                    <b><p id="gridName"></p></b>
+                    <p id="program" style="font-size:1em;"></p>
+                    <p id="network" style="font-size:1em;"><p>
+                    <br />
+                    <b>Bio</b>
+                    <p style="font-size:1em;">I am Awesome</p>
+                </div>
+                <a href="#" id="moreInfo" data-role="button" style="width:70%;margin-left:auto;margin-right:auto;"><p>+ More Info</p></a>
+                <!-- More Info Content -->
+                <div data-role="content" id="moreInfoContent" data-theme="a" style="float:left;width:70%;">
+                    <table>
+                        <tr><td>
+                            <h2>Loads more info here...</h2>
+                        </td></tr>
+                    </table>
+                </div>
+                <!-- /more Info Content -->
+            </div>
+            <!-- List of Photos -->
+            <div id="photos" style="text-align:center;float:right;width:30%;">
+                <ul data-role="listview" data-inset="true">
+                    <li><a href="#">
+                        <img src="img/Chiara2.jpg">
+                        </a>
+                    </li>
+                    <li><a href="#">
+                        <img src="img/IMG_00000193.jpg">
+                        </a>
+                    </li>
+                    <li><a href="#">
+                        <img src="img/DSC00812.jpg">
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <!-- Profile Options -->
+            <div data-role="popup" id="profileOptions" data-overlay-theme="a" data-theme="a" style="width:100%;min-width:100px;" class="ui-corner-all">
+                <div data-role="header" data-theme="a" class="ui-corner-top">
+                    <h1>Options</h1>
+                </div>
+                <a href="#switchAccounts" style="text-decoration:none;color:black;margin-bottom:100px;" data-rel="popup" data-position-to="window" data-inline="true" data-transition="pop">Switch Accounts</a><br />
+                <a href="settings.html" style="text-decoration:none;color:black;margin-bottom:100px;" data-ajax="false">Settings</a><br />
+                <a href="#" style="text-decoration:none;color:grey;margin-bottom:100px;" data-ajax="false">Unjoin grid</a>
+            </div>
+            <!-- End of Profile Options -->
+            <!-- Switch Accounts -->
+            <div data-role="popup" id="switchAccounts" data-overlay-theme="a" data-theme="a" style="width:100%;min-width:100px;" class="ui-corner-all">
+                <div data-role="header" data-theme="a" class="ui-corner-top">
+                    <h1>Accounts</h1>
+                </div>
+                <a href="#" style="text-decoration:none;color:black;margin-bottom:100px;" data-ajax="false">Elias Fares</a><br />
+                <a href="#" style="text-decoration:none;color:black;margin-bottom:100px;" data-ajax="false">CG Team</a>
+            </div>
+            <!-- End of Switch Accounts -->
+        </div>
+        <!---------------------------------------------- /default Content ------------------------------------------>
+<!------------------------------- END OF CONTENT ---------------------------------------------------------->
+        <!-- Footer -->
+        <div data-role="footer" data-position="fixed" id="footer" data-tap-toggle="false">
+            <div data-role="navbar">
+              <ul>
+                <li data-theme="a">
+                  <a href="home.html" data-ajax="false"><i class="icon-home icon-2x"></i></a>
+                </li>
+                <li data-theme="a">
+                  <a href="search.html" data-ajax="false"><i class="icon-search icon-2x"></i></a>
+                </li>
+                <li data-theme="a">
+                  <a href="calendar.html" data-ajax="false"><i class="icon-calendar icon-2x"></i></a>
+                </li>
+                <li data-theme="a">
+                  <a href="profile.html" data-ajax="false"><i class="icon-user icon-2x"></i></a>
+                </li>
+              </ul>
+            </div>
+        </div>
+        <!-- /footer -->
+    </div>
+    <script type="text/javascript">
+        /* Get gridid of the grid we are looking at */
+        if (getKeyValue('gridid')){
+            var thisGridid = getKeyValue('gridid');
+            document.getElementById("joinedStatment").innerHTML = 'Joined This';
+        }else{
+            var thisGridid = localStorage.gridid;
+            document.getElementById("joinedStatment").innerHTML = 'Joined You';
+        }
+
+        //Setup the profile options button
+        if (thisGridid == localStorage.gridid) {
+            //User is looking at their own grid
+            //Need to check if grid has multiple accounts to inlclude the "Swtich Account" option or not
+            document.getElementById("profileOptionsButton").innerHTML = '<a href="#profileOptions" data-rel="popup" data-position-to="window" data-inline="true" data-transition="pop"><img style="width:50px;height:50px;" src="img/settings_icon.png"></a>';
+        }
+        else {
+            //Need to check if user had joined this grid or not
+            document.getElementById("profileOptionsButton").innerHTML = '<p style="color:green;font-size:2em;font-weight:900;">Join</p>';
+        }
+
+        $(document).ready(function () {
+            $('#moreInfoContent').hide();
+            //More info is clicked
+            $('#moreInfo').click(function () {
+                $('#moreInfo').fadeOut();
+                $('#moreInfoContent').fadeIn();
+            });
+            //Messages is clicked
+            $('#messages').click(function () {
+                window.location = "messages.html?gridid=" + thisGridid;
+            });
+            //MembersOfGrids is clicked
+            $('#members').click(function () {
+                window.location = "gridMembers.html?gridid=" + thisGridid;
+            });
+            //gridsThisJoined is clicked
+            $('#gridsThisJoined').click(function () {
+                window.location = "gridsJoined.html?gridid=" + thisGridid;
+            });
+            //Back button is clicked
+            $('.backToDefault').click(function () {
+                $('#moreInfoContent').fadeOut()
+                $('#defaultProfileContent').fadeIn();
+                $('#moreInfo').fadeIn();
+            });
+        });
+
+        //Get number of members on this grid
+        $.post('joinedThisGrid.php', { "gridid": thisGridid },
+                function (data) {
+                    if(data.status == 1){
+                        document.getElementById("numberOfMembers").innerHTML = data.numberOfMembers;
+                    }
+                }, "json");
+
+        //Get number of grids that have been joined
+        $.post('gridsThisJoined.php', { "gridid": thisGridid },
+                function (data) {
+                    if(data.status == 1){
+                        document.getElementById("numberOfGrids").innerHTML = data.numberOfGrids;
+                    }
+                }, "json");
+
+        //Get the default profile information
+        $.post("getGridInfo.php", { "gridid": thisGridid },
+                  function (data) {
+                      if (data.status == 0) {
+                          alert("ERROR");
+                      }
+                      else {
+                          if (data.account_type == "U") {
+                              //Student info
+                              document.getElementById("gridName").innerHTML = data.first_name + " " + data.last_name;
+                              document.getElementById("program").innerHTML = data.program + " Student";
+                          } else {
+                              //Club info
+                              document.getElementById("gridName").innerHTML = data.first_name;
+                              document.getElementById("program").innerHTML = data.program + " Club";
+                          }
+                          //Common info for BOTH student and club (ex: # of members, # of other grids joined)
+                          document.getElementById("network").innerHTML = data.network;
+                      }
+                  }, "json");
+    </script>
+</body>
+
+</html>

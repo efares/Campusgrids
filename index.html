@@ -1,0 +1,614 @@
+<!DOCTYPE HTML>
+<html>
+<!-- BLUEHOST ACCOUNT PASSWORD: CGapp123! -->
+<head>
+    <title>CampusGrids</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="css/themes/campus.min.css" />
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.0/jquery.mobile.structure-1.3.0.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.3.0/jquery.mobile-1.3.0.min.js"></script>
+    <script type="text/javascript">
+        if (localStorage.gridid) {
+            window.location = "home.html";
+        }
+
+        function clearButtons() {
+            $('#registerUserButton3').removeClass("ui-btn-active");
+            $('#registerClubButton3').removeClass("ui-btn-active");
+        }
+
+        function checkEmail(email, control) {
+            email = $.trim(email)
+            var reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+            if (email == "") {
+                $('#' + control).css("display", "block");
+                $('#' + control).html("Email address is required.");
+                $('.ui-bar-a').css("border", "solid 1px red");
+                return false;
+            }
+            else if (!reg.test(email)) {
+                $('#' + control).css("display", "block");
+                $('#' + control).html("Invalid email address.");
+                return false;
+            }
+            else {
+                $('#' + control).css("display", "none");
+                return true;
+            }
+        }
+        function checkPassword(password, control) {
+            password = $.trim(password)
+            if (password == "") {
+                $('#' + control).css("display", "block");
+                $('#' + control).html("Password is required.");
+                return false;
+            }
+            else if (password.length < 6) {
+                $('#' + control).css("display", "block");
+                $('#' + control).html("Password must be at least 6 characters.");
+                return false;
+            }
+            else {
+                $('#' + control).css("display", "none");
+                return true;
+            }
+        }
+        function checkFirstName(name, control) {
+            name = $.trim(name)
+            if (name == "") {
+                $('#' + control).css("display", "block");
+                $('#' + control).html("First name is required.");
+                return false;
+            }
+            else if (name.length > 70) {
+                $('#' + control).css("display", "block");
+                $('#' + control).html("First name is too long.");
+                return false;
+            }
+            else {
+                $('#' + control).css("display", "none");
+                return true;
+            }
+        }
+        function checkLastName(name, control) {
+            name = $.trim(name)
+            if (name == "") {
+                $('#' + control).css("display", "block");
+                $('#' + control).html("Last name is required.");
+                return false;
+            }
+            else if (name.length > 30) {
+                $('#' + control).css("display", "block");
+                $('#' + control).html("Last name is too long.");
+                return false;
+            }
+            else {
+                $('#' + control).css("display", "none");
+                return true;
+            }
+        }
+        function checkClubName(name, control) {
+            name = $.trim(name)
+            if (name == "") {
+                $('#' + control).css("display", "block");
+                $('#' + control).html("Club name is required.");
+                return false;
+            }
+            else if (name.length > 70) {
+                $('#' + control).css("display", "block");
+                $('#' + control).html("Club name is too long.");
+                return false;
+            }
+            else {
+                $('#' + control).css("display", "none");
+                return true;
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <!-- Start Page -->
+    <div data-role="page" id="startPage" data-theme="a">
+        <!-- content -->
+        <div data-role="content">
+            <div style="padding-bottom: 40px;text-align: center;">
+                <img src="img/mainLogo.png" class="image" style="max-width: 70%;">
+                <h1 style="font-size: 1.3em;">Find Clubs. Find Events.</h1>
+            </div>
+            <form>
+                <a href="#registerUser1" style="margin-bottom: 20px;" data-role="button" data-transition="slide">I'm a Student</a>
+                <a href="#registerClub1" data-role="button" data-transition="slide">I'm a Club</a>
+            </form>
+            <p style="font-size: 1em; padding: 50px 0; text-align: center;">
+                Already a Member? <br /><a style="font-size: 1em; margin-right: 10px" href="#loginPage" data-transition="slide">Log In</a>
+            </p>
+        </div>
+        <!-- /content -->
+    </div>
+    <!-- /Start Page -->
+
+    <!-- Login Page -->
+    <div data-role="page" id="loginPage" data-theme="a">
+        <!-- content -->
+        <div data-role="content">
+            <div style="text-align: center; padding-bottom: 20px;">
+                <img src="img/mainLogo.png" class="image" style="max-width: 70%;">
+                <h1 style="font-size: 1.3em;">Find Clubs. Find Events.</h1>
+
+            </div>
+            <form id="loginForm" action="home.html" method="post" data-ajax="false">
+                <label for="email" class="ui-hidden-accessible">Email Address:</label>
+                <p id="emailError" class="error"></p>
+                <input type="text" name="email" id="email" value="" placeholder="Email" onblur="checkEmail($('#email').val(), 'emailError');">
+                <label for="password" class="ui-hidden-accessible">Password:</label>
+                <p id="passwordError" class="error"></p>
+                <input type="password" name="password" id="password" value="" placeholder="Password" onblur="checkPassword($('#password').val(), 'passwordError');">
+                <input type="submit" data-role="button" data-ajax="false" value="Login" />
+            </form>
+            <p style="font-size: 1em; padding-top:15px; text-align: center;">
+                <a style="font-size: 1em;" href="#forgotPassword" data-transition="slide">Forgot Password?</a>
+            </p>
+            <p style="font-size: 1em; padding: 15px 0; text-align: center;">
+                <a style="font-size: 1em;" href="#startPage" data-transition="slide" data-direction="reverse">Back</a>
+            </p>
+        </div>
+        <!-- /content -->
+    </div>
+    <!-- /Login Page -->
+    <!-- Forgot Password -->
+        <div data-role="page" id="forgotPassword" data-theme="a">
+        <div data-role="content">
+            <div style="text-align: center; padding-bottom: 10px;">
+                <img src="img/mainLogo.png" class="image" style="max-width: 70%;">
+                <h1 style="font-size: 1.3em;">Find Clubs. Find Events.</h1>
+
+            </div>
+            <form id="forgotPasswordForm" action="index.html" method="post" data-ajax="false">
+                <p style="font-size: 1.2em; padding-left: 3px; padding-top: 8px;">Enter Personal Information:</p>
+                <label for="fName" class="ui-hidden-accessible">First Name:</label>
+                <p id="fNamePasswordError" class="error"></p>
+                <input type="text" name="fName" id="fNamePassword" value="" placeholder="First Name" onblur="checkFirstName($('#fNamePassword').val(), 'fNamePasswordError');">
+                <label for="lName" class="ui-hidden-accessible">Last Name:</label>
+                <p id="lNamePasswordError" class="error"></p>
+                <input type="text" name="lName" id="lNamePassword" value="" placeholder="Last Name" onblur="checkLastName($('#lNamePassword').val(), 'lNamePasswordError');">
+                <label for="emailU" class="ui-hidden-accessible">Email Address:</label>
+                <p id="emailPasswordError" class="error"></p>
+                <input type="text" name="emailU" id="emailPassword" value="" placeholder="Email Address" onblur="checkEmail($('#emailPassword').val(), 'emailPasswordError');">
+                <input type="submit" id="forgotPasswordButton" data-role="button" data-ajax="false" value="Reset Password" />
+                <p>A new password will be emailed to you.</p>
+            </form>
+            <p class="goBack">
+                <a href="#loginPage" data-transition="slide" data-direction="reverse">Go Back</a>
+            </p>
+        </div>
+        <!-- /content -->
+    </div>
+    <!-- /forgot password -->
+
+    <!-- Register User Page 1 -->
+    <div data-role="page" id="registerUser1" data-theme="a">
+        <div data-role="content">
+            <div style="text-align: center; padding-bottom: 10px;">
+                <img src="img/mainLogo.png" class="image" style="max-width: 70%;">
+                <h1 style="font-size: 1.3em;">Find Clubs. Find Events.</h1>
+
+            </div>
+            <form>
+                <p style="font-size: 1.2em; padding-left: 3px; padding-top: 8px;">Pick your School:</p>
+                <fieldset data-role="controlgroup" data-iconpos="right">
+                    <input type="radio" name="networkU" id="radio-networkU-6a" value="Algonquin College" checked="checked" />
+                    <label for="radio-networkU-6a">Algonquin College</label>
+                    <input type="radio" name="networkU" id="radio-networkU-6b" value="Carleton University" />
+                    <label for="radio-networkU-6b">Carleton University</label>
+                    <input type="radio" name="networkU" id="radio-networkU-6c" value="University of Ottawa" />
+                    <label for="radio-networkU-6c">University of Ottawa</label>
+                </fieldset>
+                <a href="#registerUser2" data-role="button" data-transition="slide">Continue</a>
+            </form>
+            <p class="goBack">
+                <a href="#startPage" data-transition="slide" data-direction="reverse">Go Back</a>
+            </p>
+        </div>
+        <!-- /content -->
+    </div>
+    <!-- /Register User Page 1 -->
+    <!-- Register User Page 2 -->
+    <div data-role="page" id="registerUser2" data-theme="a">
+        <div data-role="content">
+            <div style="text-align: center; padding-bottom: 10px;">
+                <img src="img/mainLogo.png" class="image" style="max-width: 70%;">
+                <h1 style="font-size: 1.3em;">Find Clubs. Find Events.</h1>
+
+            </div>
+            <form>
+                <p style="font-size: 1.2em; padding-left: 3px; padding-top: 8px;">What do you study?</p>
+                <br />
+                <div data-role="fieldcontatin" class="ui-icon-alt">
+                    <select id="select-programU" data-iconpos="right">
+                        <option value="Other">Choose One</option>
+                        <option value="Aboriginal Studies">Aboriginal Studies</option>
+                        <option value="Accounting">Accounting</option>
+                        <option value="Anthropology">Anthropology</option>
+                        <option value="Arabic">Arabic</option>
+                        <option value="Architectural Studies">Architectural Studies</option>
+                        <option value="Arts">Arts</option>
+                        <option value="Biochemistry">Biochemistry</option>
+                        <option value="Biology">Biology</option>
+                        <option value="BiomedicalScience">Biomedical Science</option>
+                        <option value="Business">Business</option>
+                        <option value="Canadian Studies">Canadian Studies</option>
+                        <option value="Chemistry">Chemistry</option>
+                        <option value="Classical Studies">Classical Studies</option>
+                        <option value="Cognitive Science">Cognitive Science</option>
+                        <option value="Commerce">Commerce</option>
+                        <option value="Communication">Communication</option>
+                        <option value="Computer Science">Computer Science</option>
+                        <option value="Criminology">Criminology</option>
+                        <option value="Economics">Economics</option>
+                        <option value="Engineering">Engineering</option>
+                        <option value="English">English</option>
+                        <option value="Entrepreneurship">Entrepreneurship</option>
+                        <option value="Environmental Studies">Environmental Studies</option>
+                        <option value="Ethics & Society">Ethics & Society</option>
+                        <option value="Finance">Finance</option>
+                        <option value="French Studies">French Studies</option>
+                        <option value="Geography">Geography</option>
+                        <option value="Geology">Geology</option>
+                        <option value="Geomatics & Spatial Analysis">Geomatics & Spatial Analysis</option>
+                        <option value="German">German</option>
+                        <option value="Global Politics">Global Politics</option>
+                        <option value="Health Sciences">Health Sciences</option>
+                        <option value="History">History</option>
+                        <option value="Human Kinetics">Human Kinetics</option>
+                        <option value="Human Resource Management">Human Resource Management</option>
+                        <option value="Human Rights">Human Rights</option>
+                        <option value="Humanities">Humanities</option>
+                        <option value="Industrial Design">Industrial Design</option>
+                        <option value="Information Technology">Information Technology</option>
+                        <option value="International Business">International Business</option>
+                        <option value="International Management">International Management</option>
+                        <option value="International Studies">International Studies</option>
+                        <option value="Italian">Italian</option>
+                        <option value="Journalism">Journalism</option>
+                        <option value="Latin Studies">Latin Studies</option>
+                        <option value="Law">Law</option>
+                        <option value="Linguistics">Linguistics</option>
+                        <option value="Management Studies">Management Studies</option>
+                        <option value="Marketing">Marketing</option>
+                        <option value="Mathematics">Mathematics</option>
+                        <option value="Medicine">Medicine</option>
+                        <option value="Music">Music</option>
+                        <option value="Nursing">Nursing</option>
+                        <option value="Philosophy">Philosophy</option>
+                        <option value="Physics">Physics</option>
+                        <option value="Political Science">Political Science</option>
+                        <option value="Public Affairs & Policy Management">Public Affairs & Policy Management</option>
+                        <option value="Religious Studies">Religious Studies</option>
+                        <option value="Russian">Russian</option>
+                        <option value="Science">Science</option>
+                        <option value="Social Studies">Social Studies</option>
+                        <option value="Sociology">Sociology</option>
+                        <option value="Spanish">Spanish</option>
+                        <option value="Theatre">Theatre</option>
+                        <option value="Visual Studies">Visual Studies</option>
+                        <option value="Women Studies">Women Studies</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <br />
+                <a href="#registerUser3" data-role="button" data-transition="slide">Continue</a>
+            </form>
+            <p class="goBack">
+            <a href="#registerUser1" data-transition="slide" data-direction="reverse">Go Back</a>
+        </p>
+        </div>
+        <!-- /content -->
+    </div>
+    <!-- /Register User Page 2 -->
+    <!-- Register User Page 3 -->
+        <div data-role="page" id="registerUser3" data-theme="a">
+        <div data-role="content">
+            <div style="text-align: center; padding-bottom: 10px;">
+                <img src="img/mainLogo.png" class="image" style="max-width: 70%;">
+                <h1 style="font-size: 1.3em;">Find Clubs. Find Events.</h1>
+
+            </div>
+            <form id="registerUForm" action="home.html" method="post" data-ajax="false">
+                <p style="font-size: 1.2em; padding-left: 3px; padding-top: 8px;">Personal Information:</p>
+                <label for="fName" class="ui-hidden-accessible">First Name:</label>
+                <p id="fNameError" class="error"></p>
+                <input type="text" name="fName" id="fName" value="" placeholder="First Name" onblur="checkFirstName($('#fName').val(), 'fNameError');">
+                <label for="lName" class="ui-hidden-accessible">Last Name:</label>
+                <p id="lNameError" class="error"></p>
+                <input type="text" name="lName" id="lName" value="" placeholder="Last Name" onblur="checkLastName($('#lName').val(), 'lNameError');">
+                <label for="emailU" class="ui-hidden-accessible">Email Address:</label>
+                <p id="emailUError" class="error"></p>
+                <input type="text" name="emailU" id="emailU" value="" placeholder="Email Address" onblur="checkEmail($('#emailU').val(), 'emailUError');">
+                <label for="passwordU" class="ui-hidden-accessible">Password:</label>
+                <p id="passwordUError" class="error"></p>
+                <input type="password" name="passwordU" id="passwordU" value="" placeholder="Password" onblur="checkPassword($('#passwordU').val(), 'passwordUError');">
+                <input type="submit" id="registerUserButton3" data-role="button" data-ajax="false" value="Sign Up" />
+            </form>
+            <p class="goBack">
+                <a href="#registerUser2" data-transition="slide" data-direction="reverse">Go Back</a>
+            </p>
+        </div>
+        <!-- /content -->
+    </div>
+    <!-- /Register User Page 3 -->
+
+    <!-- Register Club Page 1 -->
+    <div data-role="page" id="registerClub1" data-theme="a">
+        <div data-role="content">
+            <div style="text-align: center; padding-bottom: 10px;">
+                <img src="img/mainLogo.png" class="image" style="max-width: 70%;">
+                <h1 style="font-size: 1.3em;">Find Clubs. Find Events.</h1>
+
+            </div>
+            <form>
+                <p style="font-size: 1.2em; padding-left: 3px; padding-top: 8px;">Pick your School:</p>
+                <fieldset data-role="controlgroup" data-iconpos="right">
+                    <input type="radio" name="networkC" id="radio-networkC-6a" value="Algonquin College" checked="checked" />
+                    <label for="radio-networkC-6a">Algonquin College</label>
+                    <input type="radio" name="networkC" id="radio-networkC-6b" value="Carleton University" />
+                    <label for="radio-networkC-6b">Carleton University</label>
+                    <input type="radio" name="networkC" id="radio-networkC-6c" value="University of Ottawa" />
+                    <label for="radio-networkC-6c">Ottawa University</label>
+                    <input type="radio" name="networkC" id="radio-networkC-6d" value="Ottawa Area" />
+                    <label for="radio-networkC-6d">All</label>
+                </fieldset>
+                <a href="#registerClub2" data-role="button" data-transition="slide">Continue</a>
+            </form>
+            <p class="goBack">
+                <a href="#startPage" data-transition="slide" data-direction="reverse">Go Back</a>
+            </p>
+        </div>
+        <!-- /content -->
+    </div>
+    <!-- /Register Club Page 1 -->
+    <!-- Register Club Page 2 -->
+    <div data-role="page" id="registerClub2" data-theme="a">
+        <div data-role="content">
+            <div style="text-align: center; padding-bottom: 10px;">
+                <img src="img/mainLogo.png" class="image" style="max-width: 70%;">
+                <h1 style="font-size: 1.3em;">Find Clubs. Find Events.</h1>
+
+            </div>
+            <form>
+                <p style="font-size: 1.2em; padding-left: 3px; padding-top: 8px;">What do you focus in?</p>
+                <br />
+                <div data-role="fieldcontatin" class="ui-icon-alt">
+                    <select id="select-programC" data-iconpos="right">
+                        <option value="Other">Chose One</option>
+                        <option value="Athletics">Athletics</option>
+                        <option value="Arts">Arts</option>
+                        <option value="Business">Business</option>
+                        <option value="Commerce">Commerce</option>
+                        <option value="Dance">Dance</option>
+                        <option value="Engineering">Engineering</option>
+                        <option value="Journalism">Journalism</option>
+                        <option value="Computer Science">Computer Science</option>
+                        <option value="Law">Law</option>
+                        <option value="Math">Math</option>
+                        <option value="Music">Music</option>
+                        <option value="Politics">Politics</option>
+                        <option value="Religion">Religion</option>
+                        <option value="Science">Science</option>
+                        <option value="Social">Social</option>
+                        <option value="Technology">Technology</option>
+                        <option value="Humanities">Humanities</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <br />
+                <a href="#registerClub3" data-role="button" data-transition="slide">Continue</a>
+            </form>
+            <p class="goBack">
+            <a href="#registerClub1" data-transition="slide" data-direction="reverse">Go Back</a>
+        </p>
+        </div>
+        <!-- /content -->
+    </div>
+    <!-- /Register Club Page 2 -->
+    <!-- Register Club Page 3 -->
+    <div data-role="page" id="registerClub3" data-theme="a">
+        <div data-role="content">
+            <div style="text-align: center; padding-bottom: 10px;">
+                <img src="img/mainLogo.png" class="image" style="max-width: 70%;">
+                <h1 style="font-size: 1.3em;">Find Clubs. Find Events.</h1>
+            </div>
+            <form id="registerCForm" action="home.html" method="post" data-ajax="false">
+                <p style="font-size: 1.2em; padding-left: 3px; padding-top: 8px;">Club Information:</p>
+                <label for="clubName" class="ui-hidden-accessible">Club Name:</label>
+                <p id="clubNameError" class="error"></p>
+                <input type="text" name="clubName" id="clubName" value="" placeholder="Club Name" onblur="checkClubName($('#clubName').val(), 'clubNameError');">
+                <label for="emailC" class="ui-hidden-accessible">Email Address:</label>
+                <p id="emailCError" class="error"></p>
+                <input type="text" name="emailC" id="emailC" value="" placeholder="Email Address" onblur="checkEmail($('#emailC').val(), 'emailCError');">
+                <label for="passwordC" class="ui-hidden-accessible">Password:</label>
+                <p id="passwordCError" class="error"></p>
+                <input type="password" name="passwordC" id="passwordC" value="" placeholder="Password" onblur="checkPassword($('#passwordC').val(), 'passwordCError');">
+                <input type="submit" id="registerClubButton3" data-role="button" data-ajax="false" value="Sign Up" />
+            </form>
+            <p class="goBack">
+                <a href="#registerClub2" data-transition="slide" data-direction="reverse">Go Back</a>
+            </p>
+        </div>
+        <!-- /content -->
+    </div>
+    <!-- /Register Club Page -->
+
+    <script type="text/javascript">
+        var valFName = false;
+        var valLName = false;
+        var valClubName = false;
+        var valEmail = false;
+        var valPassword = false;
+
+        $("#loginForm").submit(function () {
+            valEmail = checkEmail($('#email').val(), 'emailError');
+            valPassword = checkPassword($('#password').val(), 'passwordError');
+            if (valEmail && valPassword) {
+                $.post("login.php", { "email": $('#email').val(), "password": $('#password').val() },
+                  function(data){
+                    if (data.status == 0) {
+                        $('#passwordError').css("display", "block");
+                        $('#passwordError').html("Invalid email/password combination.");
+                        return false;
+                    }
+                    else {
+                        $('#passwordError').css("display", "none");
+                        localStorage.gridid = data.gridid;
+                        localStorage.first_name = data.first_name;
+                        if (data.account_type = "U")
+                            localStorage.last_name = data.last_name;
+                        localStorage.email = data.email;
+                        localStorage.profile_picture = data.profile_picture;
+                        localStorage.password = data.password;
+                        localStorage.network = data.network;
+                        localStorage.account_type = data.account_type;
+                        alert('network: ' + localStorage.network);
+                        alert("Welcome " + localStorage.first_name);
+                        window.location = "home.html";
+                    }
+                  }, "json");
+                return false;
+            }
+            else {
+                return false;
+            }
+        });
+
+        $('#forgotPasswordButton').on("tap", function (e) {
+            setTimeout(clearButtons, 20);
+            valFNamePassword = checkFirstName($('#fNamePassword').val(), 'fNamePasswordError');
+            valLNamePassword = checkLastName($('#lNamePassword').val(), 'lNamePasswordError');
+            valEmailPassword = checkEmail($('#emailPassword').val(), 'emailPasswordError');
+            if (!valFNamePassword || !valLNamePassword || !valEmailPassword) {
+                e.preventDefault(); // this prevents the standard link behaviour
+            }
+        });
+
+        $("#forgotPasswordForm").submit(function () {
+            if (valFNamePassword && valLNamePassword && valEmailPassword) {
+                $.post("forgotPassword.php", { "fName": $('#fNamePassword').val(), "lName": $('#lNamePassword').val(), "email": $('#emailPassword').val() },
+                  function (data) {
+                      if (data.status == 0) {
+                          alert("ERROR"); // Sign up error here...
+                          return false;
+                      }
+                      else if (data.status == -1) {
+                          $('#fNamePasswordError').css("display", "block");
+                          $('#fNamePasswordError').html("No match found. Please sign up or verify your information.");
+                          return false;
+                      }
+                      else {
+                          alert("Password for " + data.email + " has been reset. Please check your email.");
+                          window.location = "index.html";
+                      }
+                  }, "json");
+                return false;
+            }
+            else {
+                return false;
+            }
+        });
+
+        $('#registerUserButton3').on( "tap", function (e) {
+            setTimeout(clearButtons,20);
+            valFName = checkFirstName($('#fName').val(), 'fNameError');
+            valLName = checkLastName($('#lName').val(), 'lNameError');
+            valEmail = checkEmail($('#emailU').val(), 'emailUError');
+            valPassword = checkPassword($('#passwordU').val(), 'passwordUError');
+            if (!valFName || !valLName || !valEmail || !valPassword) {
+                e.preventDefault(); // this prevents the standard link behaviour
+            }
+        });
+        
+        $("#registerUForm").submit(function () {
+            if (valFName && valLName && valEmail && valPassword) {
+                $.post("signup.php", { "func": "addUser", "fName": $('#fName').val(), "lName": $('#lName').val(), "email": $('#emailU').val(), "password": $('#passwordU').val(), "network": $('input:radio[name=networkU]:checked').val(), "program": $('#select-programU').val() },
+                function (data) {
+                    if (data.status == 0) {
+                        alert("ERROR"); // Sign up error here...
+                        return false;
+                    }
+                    else if (data.status == -1) {
+                        alert("Email already in use."); // Sign up error here...
+                        return false;
+                    }
+                    else {
+                        localStorage.gridid = data.gridid;
+                        localStorage.first_name = data.first_name;
+                        localStorage.last_name = data.last_name;
+                        localStorage.email = data.email;
+                        localStorage.password = data.password;
+                        localStorage.account_type = data.account_type;
+                        alert('Type: ' + localStorage.account_type);
+                        alert("Welcome " + localStorage.first_name);
+                        window.location = "home.html";
+                    }
+                  }, "json");
+                return false;
+            }
+            else {
+                return false;
+            }
+        });
+
+        $('#registerClubButton3').on( "tap", function (e) {
+            setTimeout(clearButtons,20);
+            valClubName = checkClubName($('#clubName').val(), 'clubNameError');
+            valEmail = checkEmail($('#emailC').val(), 'emailCError');
+            valPassword = checkPassword($('#passwordC').val(), 'passwordCError');
+            if (!valClubName || !valEmail || !valPassword) {
+                e.preventDefault(); // this prevents the standard link behaviour
+            }
+        });
+
+        $("#registerCForm").submit(function () {
+            if (valClubName && valEmail && valPassword) {
+                $.post("signup.php", { "func": "addClub", "clubName": $('#clubName').val(), "email": $('#emailC').val(), "password": $('#passwordC').val(), "network": $('input:radio[name=networkC]:checked').val(), "program": $('#select-programC').val() },
+                  function(data){
+                    if (data.status == 0) {
+                        alert("ERROR"); // Sign up error here...
+                        return false;
+                    }
+                    else if (data.status == -1) {
+                        alert("Email already in use."); // Sign up error here...
+                        return false;
+                    }
+                    else {
+                        localStorage.gridid = data.gridid;
+                        localStorage.first_name = data.first_name;
+                        localStorage.last_name = "";
+                        localStorage.email = data.email;
+                        localStorage.password = data.password;
+                        localStorage.account_type = data.account_type;
+                        alert("Welcome " + localStorage.first_name);
+                        window.location = "home.html";
+                    }
+                  }, "json");
+                return false;
+            }
+            else {
+                return false;
+            }
+        });
+    </script>
+            <script>
+                $("body").css("overflow", "hidden");
+
+            //Is this logout code still needed here? It's in Settings now.
+                $('#logoutLink').click(function (e) {
+                    localStorage.clear();
+                    window.location = "index.html";
+                });
+        </script>
+</body>
+
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE HTML>
+<html>
+
+    <head>
+        <title>CampusGrids: Feedback</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
+        <link rel="stylesheet" href="css/style.css" />
+        <link rel="stylesheet" href="css/themes/campus.min.css" />
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.0/jquery.mobile.structure-1.3.0.min.css" />
+        <link rel="stylesheet" href="css/font-awesome.css" />
+        <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+        <script src="http://code.jquery.com/mobile/1.3.0/jquery.mobile-1.3.0.min.js"></script>
+        <script type="text/javascript" src="js/CG.js"></script>
+        <script type="text/javascript">
+            function checkFeedbackMessage(feedback_message, control) {
+                feedback_message = $.trim(feedback_message)
+                if (feedback_message == "") {
+                    $('#' + control).css("display", "block");
+                    $('#' + control).html("Feedback message is blank.");
+                    return false;
+                }
+                else {
+                    $('#' + control).css("display", "none");
+                    return true;
+                }
+            }
+        </script>
+    </head>
+<body>
+    <div data-role="page" id="feedbackPage" data-theme="a">
+        <!-- Header -->
+        <div data-role="panel" id="menuPanel" data-position="right" data-display="overlay" data-theme="b">
+            <ul data-role="listview">
+                    <li>
+                        <a href="allClubs.html" data-ajax="false">All Clubs</a>
+                    </li>
+                    <li>
+                        <a href="allEvents.html" data-ajax="false">All Events</a>
+                    </li>
+                    <li>
+                        <a href="findFriends.html" data-ajax="false">Find Friends</a>
+                    </li>
+                    <!--<li>
+                        <a href="promote.html">Promote</a>
+                    </li>-->
+                    <li>
+                        <a href="settings.html" data-ajax="false">Settings</a>
+                    </li>
+                    <li>
+                        <a href="feedback.html" data-ajax="false">Feedback</a>
+                    </li>
+                    <li>
+                        <a href="linkAccounts.html" data-ajax="false">Link Accounts</a>
+                    </li>
+                </ul>
+                <!-- <a style="margin-top: 50px;" href="#" data-rel="close" data-role="button" data-icon="delete" data-iconpos="left">Close Menu</a> -->
+        </div>
+        <div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme="b">
+            <img src="img/logo_small.png" class="smallLogo">
+            <h1 class="headerTitle">Feedback</h1>
+            <a id="header" href="#menuPanel" class="ui-btn-right"><i style="font-size: 1.4em;" class="icon-reorder"></i></a>
+        </div>
+        <!-- /header -->
+
+<!------------------------------- CONTENT ---------------------------------------------------------->
+            <div data-role="content" id="feedbackFormContent">
+                <table style="margin-bottom:25px;">
+                    <tr><td>
+                        <h1 style="font-size:98%;">To:</h1>
+                    </td><td>
+                        <p>CampusGrids Team</p>
+                    </td></tr><tr><td>
+                        <h1 style="font-size:98%;">From:</h1>
+                    </td><td>
+                        <p>
+                            <script type="text/javascript">
+                                document.write(localStorage.first_name + " " + ((localStorage.last_name) ? localStorage.last_name : ""));
+                            </script>
+                        </p>
+                    </td></tr>
+                </table>
+                <form id="feedbackForm" action="feedback.php" method="post" data-ajax="false">
+                    <label for="feedback_message" class="ui-hidden-accessible">Feedback:</label>
+                    <p id="feedbackError" class="error"></p>
+                    <textarea name="feedback_message" id="feedback_message" style="height:170px;margin-bottom:20px;" onblur="checkFeedbackMessage($('#feedback_message').val(), 'feedbackError');" placeholder="Comment or Report an Issue..."></textarea>
+                    <input type="submit" data-role="button" data-ajax="false" value="Send" />
+                </form>
+            </div>
+            <div id="feedbackSent" style="position:relative;bottom:300px;">
+                <h1>Thanks!</h1>
+                <h1 style="font-size:1.1em">Your feedback has been sent :)</h1>
+            </div>
+<!------------------------------- END OF CONTENT ---------------------------------------------------------->
+        <div data-role="footer" data-position="fixed" id="footer" data-tap-toggle="false">
+            <div data-role="navbar">
+              <ul>
+                <li data-theme="a">
+                  <a href="home.html" data-ajax="false"><i class="icon-home icon-2x"></i></a>
+                </li>
+                <li data-theme="a">
+                  <a href="search.html" data-ajax="false"><i class="icon-search icon-2x"></i></a>
+                </li>
+                <li data-theme="a">
+                  <a href="calendar.html" data-ajax="false"><i class="icon-calendar icon-2x"></i></a>
+                </li>
+                <li data-theme="a">
+                  <a href="profile.html" data-ajax="false"><i class="icon-user icon-2x"></i></a>
+                </li>
+              </ul>
+            </div>
+        </div>
+        <!-- /footer -->
+    </div>
+    <script>
+        $("body").css("overflow", "hidden");
+        $('#search-1').focus(function () {
+            $('#footer').hide();
+        });
+        $('#search-1').blur(function () {
+            $('#footer').show();
+        });
+    </script>
+    <script type="text/javascript">
+        var valFeedbackMessage = false;
+
+        $(document).ready(function () {
+            $('#feedbackSent').hide();
+            $('#feedbackForm').submit(function (e) {
+                e.preventDefault(); //This is needed so the page doesn't refresh when form is submitted
+                valFeedbackMessage = checkFeedbackMessage($('#feedback_message').val(), 'feedbackError');
+                if (valFeedbackMessage) {
+                    //Form is filled out, proceed to send it.
+                    $.post("feedback.php", { "feedbackMessage": $('#feedback_message').val(), "gridid": localStorage.gridid, "email": localStorage.email, "firstName": localStorage.first_name, "lastName": localStorage.last_name },
+                    function(data){
+                        if (data.status == 0) {
+                            $('#feedbackError').css("display", "block");
+                            $('#feedbackError').html("Sorry, there was a problem sending your feedback.");
+                            return false;
+                        }
+                        else {
+                            $('#feedbackError').css("display", "none");
+                            $('#feedbackFormContent').fadeOut();
+                            $('#feedbackSent').fadeIn();
+                        }
+                    }, "json");
+                }
+                else {
+                    return false;
+                }
+            });
+        });
+    </script>
+</body>
+</html>

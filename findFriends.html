@@ -1,0 +1,91 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>CampusGrids: Find Friends</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
+        <link rel="stylesheet" href="css/style.css" />
+        <link rel="stylesheet" href="css/themes/campus.min.css" />
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.0/jquery.mobile.structure-1.3.0.min.css" />
+        <link rel="stylesheet" href="css/font-awesome.css" />
+        <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+        <script src="http://code.jquery.com/mobile/1.3.0/jquery.mobile-1.3.0.min.js"></script>
+        <script type="text/javascript" src="js/CG.js"></script>
+    </head>
+
+<body>
+    <div data-role="page" id="findFriendsPage" data-theme="a">
+        <!-- Header -->
+        <div data-role="panel" id="menuPanel" data-position="right" data-display="overlay" data-theme="b">
+            <ul data-role="listview">
+                    <li>
+                        <a href="allClubs.html" data-ajax="false">All Clubs</a>
+                    </li>
+                    <li>
+                        <a href="allEvents.html" data-ajax="false">All Events</a>
+                    </li>
+                    <li>
+                        <a href="findFriends.html" data-ajax="false">Find Friends</a>
+                    </li>
+                    <!--<li>
+                        <a href="promote.html">Promote</a>
+                    </li>-->
+                    <li>
+                        <a href="settings.html" data-ajax="false">Settings</a>
+                    </li>
+                    <li>
+                        <a href="feedback.html" data-ajax="false">Feedback</a>
+                    </li>
+                    <li>
+                        <a href="linkAccounts.html" data-ajax="false">Link Accounts</a>
+                    </li>
+                </ul>
+                <!-- <a style="margin-top: 50px;" href="#" data-rel="close" data-role="button" data-icon="delete" data-iconpos="left">Close Menu</a> -->
+        </div>
+        <div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme="b">
+            <img src="img/logo_small.png" class="smallLogo">
+            <h1 class="headerTitle">Find Friends</h1>
+            <a id="header" href="#menuPanel" class="ui-btn-right"><i style="font-size: 1.4em;" class="icon-reorder"></i></a>
+        </div>
+        <!-- /header -->
+
+<!------------------------------- CONTENT ---------------------------------------------------------->
+        <div data-role="content" id="content" data-theme="a">
+            <h1 style="font-size:95%;text-align:left;">Friends on CampusGrids</h1>
+            <hr />
+            <h1 style="font-size:95%;text-align:left;">Invite Friends</h1>
+            <hr />
+        </div>
+<!------------------------------- END OF CONTENT ---------------------------------------------------------->
+        <div data-role="footer" data-position="fixed" id="footer" data-tap-toggle="false">
+            <div data-role="navbar">
+              <ul>
+                <li data-theme="a">
+                  <a href="home.html" data-ajax="false"><i class="icon-home icon-2x"></i></a>
+                </li>
+                <li data-theme="a">
+                  <a href="search.html" data-ajax="false"><i class="icon-search icon-2x"></i></a>
+                </li>
+                <li data-theme="a">
+                  <a href="calendar.html" data-ajax="false"><i class="icon-calendar icon-2x"></i></a>
+                </li>
+                <li data-theme="a">
+                  <a href="profile.html" data-ajax="false"><i class="icon-user icon-2x"></i></a>
+                </li>
+              </ul>
+            </div>
+        </div>
+        <!-- /footer -->
+    </div>
+    <script>
+        $("body").css("overflow", "hidden");
+        $('#search-1').focus(function () {
+            $('#footer').hide();
+        });
+        $('#search-1').blur(function () {
+            $('#footer').show();
+        });
+    </script>
+</body>
+
+</html>

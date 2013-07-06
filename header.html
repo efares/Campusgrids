@@ -1,0 +1,37 @@
+
+<ul data-role="listview">
+        <li>
+            <a href="#">All Clubs</a>
+        </li>
+        <li>
+            <a href="#">All Events</a>
+        </li>
+        <li>
+            <a href="#">Settings</a>
+        </li>
+        <li>
+            <a href="#">Find Friends</a>
+        </li>
+        <li>
+            <a href="#">Promote</a>
+        </li>
+        <li>
+            <a href="#">Feedback</a>
+        </li>
+        <li>
+            <a href="#">Link Accounts</a>
+        </li>
+        <li>
+            <a href="index.html" id="logoutLink" data-ajax="false">Logout</a>
+        </li>
+    </ul>
+    <!-- <a style="margin-top: 50px;" href="#" data-rel="close" data-role="button" data-icon="delete" data-iconpos="left">Close Menu</a>
+        -->
+<script>
+            $("body").css("overflow", "hidden");
+
+            $('#logoutLink').click(function (e) {
+                localStorage.clear();
+                window.location = "index.html";
+            });
+        </script>

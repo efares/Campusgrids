@@ -1,0 +1,256 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>CampusGrids: All Events</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
+        <link rel="stylesheet" href="css/style.css" />
+        <link rel="stylesheet" href="css/themes/campus.min.css" />
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.0/jquery.mobile.structure-1.3.0.min.css" />
+        <link rel="stylesheet" href="css/font-awesome.css" />
+        <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+        <script src="http://code.jquery.com/mobile/1.3.0/jquery.mobile-1.3.0.min.js"></script>
+        <script type="text/javascript" src="js/CG.js"></script>
+    </head>
+
+<body>
+    <div data-role="page" id="allEventsPage" data-theme="a">
+        <!-- Header -->
+        <div data-role="panel" id="menuPanel" data-position="right" data-display="overlay" data-theme="b">
+            <ul data-role="listview">
+                    <li>
+                        <a href="allClubs.html" data-ajax="false">All Clubs</a>
+                    </li>
+                    <li>
+                        <a href="allEvents.html" data-ajax="false">All Events</a>
+                    </li>
+                    <li>
+                        <a href="findFriends.html" data-ajax="false">Find Friends</a>
+                    </li>
+                    <!--<li>
+                        <a href="promote.html">Promote</a>
+                    </li>-->
+                    <li>
+                        <a href="settings.html" data-ajax="false">Settings</a>
+                    </li>
+                    <li>
+                        <a href="feedback.html" data-ajax="false">Feedback</a>
+                    </li>
+                    <li>
+                        <a href="linkAccounts.html" data-ajax="false">Link Accounts</a>
+                    </li>
+                </ul>
+                <!-- <a style="margin-top: 50px;" href="#" data-rel="close" data-role="button" data-icon="delete" data-iconpos="left">Close Menu</a> -->
+        </div>
+        <div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme="b">
+            <img src="img/logo_small.png" class="smallLogo">
+            <h1 class="headerTitle">All Events</h1>
+            <a id="header" href="#menuPanel" class="ui-btn-right"><i style="font-size: 1.4em;" class="icon-reorder"></i></a>
+            <!-- Sub-Header for this page -->
+            <div class="ui-grid-a" style="border-top:1px solid grey;">
+                <div class="ui-block-a" style="width: 75%;">
+                    <div class="ui-btn-inner"><p id="network" style="font-size:x-large;"></p></div>
+                </div>
+                <div class="ui-block-b" style="width: 25%; text-align: right;">
+                    <a href="#popupChangeNetwork" data-role="button" data-rel="popup" data-position-to="window" data-inline="true" data-transition="pop">Change</a>
+                </div>
+            </div>
+        </div>
+        <!-- /header -->
+
+<!------------------------------- CONTENT ---------------------------------------------------------->
+        <div data-role="content" id="content" data-theme="a">
+            <div data-role="popup" id="popupChangeNetwork" data-overlay-theme="a" data-theme="a" style="width:100%;" class="ui-corner-all">
+                <div data-role="header" data-theme="a" class="ui-corner-top">
+                    <h1>Networks</h1>
+                </div>
+                <a href="allEvents.html?network=all" data-role="button" data-ajax="false">All Networks</a>
+                <a href="allEvents.html?network=algonquin" data-role="button" data-ajax="false">Algonquin College</a>
+                <a href="allEvents.html?network=carletonu" data-role="button" data-ajax="false">Carleton University</a>
+                <a href="allEvents.html?network=ottawau" data-role="button" data-ajax="false">University of Ottawa</a>
+            </div>
+                <script>
+
+                // these are labels for the days of the week
+                cal_days_labels = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+                // Give month length a value
+                var monthLength = 0;
+
+                // these are human-readable month name labels, in order
+                cal_months_labels = ['January', 'February', 'March', 'April',
+                                     'May', 'June', 'July', 'August', 'September',
+                                     'October', 'November', 'December'];
+
+                // these are the days of the week for each month, in order
+                cal_days_in_month = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+                var cal_current_date = new Date();             //Current date
+                var currentDay = cal_current_date.getDate();   //Day of the month (1-31)
+                var curYear;
+                var curMonth;
+
+                function Calendar(month, year) {
+                    this.month = (isNaN(month) || month == null) ? cal_current_date.getMonth() : month; //Month (0-11)
+                    curMonth = this.month;
+                    this.year = (isNaN(year) || year == null) ? cal_current_date.getFullYear() : year;  //The year (4 digits)
+                    curYear = this.year;
+                    this.html = '';
+                }
+
+                Calendar.prototype.generateHTML = function () {
+                    //We will need to know when the first day of the month was on (0-6)
+                    var firstDay = new Date(this.year, this.month, 1);
+                    var startingDay = firstDay.getDay();
+                    //This is used to determine how many blank days there are before the first day starts
+
+                    //How many days are in this month
+                    monthLength = cal_days_in_month[this.month];
+
+                    // compensate for leap year
+                    if (this.month == 1) { // February only!
+                        if ((this.year % 4 == 0 && this.year % 100 != 0) || this.year % 400 == 0) {
+                            monthLength = 29;
+                        }
+                    }
+                    var test = 0;
+                    //Building the HTML string for the calendar
+                    var monthName = cal_months_labels[this.month];
+                    var html = '<table class="calendar-table">';    //Make a table
+                    html += '<tr><th id="previousMonth" colspan="2"> < </th>';
+                    html += '<th class="calendar-monthName" colspan="3">';
+                    html += monthName + "&nbsp;" + this.year;      //First row contains the month and the year
+                    html += '</th><th id="nextMonth" colspan="2"> > </th></tr>';
+                    html += '<tr>';
+                    for (var i = 0; i <= 6; i++) {
+                        html += '<td class="calendar-daysOfWeek">';
+                        html += cal_days_labels[i];
+                        html += '</td>';
+                    }
+                    html += '</tr><tr>';
+
+                    var day = 1;
+                    // this loop is to create the weeks (rows)
+                    for (var i = 0; i < 6; i++) {
+                        // this loop is for weekdays (cells)
+                        for (var j = 0; j <= 6; j++) {
+                            //This if statement is only to highlight the current day (background color)
+                            if (day != currentDay) {
+                                html += '<td class="calendar-dayNumber">';
+                            } else {
+                                html += '<td class="calendar-currentDay">';
+                            }
+                            //We want to skip inserting the blank days of this month
+                            if (day <= monthLength && (i > 0 || j >= startingDay)) {
+                                html += day;
+                                //Call function: numOfEvents to check if there are any events on this day
+                                var actualMonth = this.month + 1;   //Need to increment month because this.month is months from 0-11
+                                html += '<br /><a href="eventListAll.html?date=' + this.year + '-' + actualMonth + '-' + day + '" class="numOfEvents" data-ajax="false"><span id="day' + day + '"></span></a>';
+                                day++;
+                            }
+                            html += '</td>';
+                        }
+                        // stop making rows if we've reached the end of the month
+                        if (day > monthLength) {
+                            break;
+                        } else {
+                            html += '</tr><tr>';
+                        }
+                    }
+                    html += '</tr></table>';
+
+                    this.html = html;
+                }
+
+                Calendar.prototype.getHTML = function () {
+                    return this.html;
+                }
+                //document.write(monthLength);
+
+                $(document).ready(function () {
+                    $.post('allEvents.php', { "year": curYear, "month": curMonth + 1 },
+                        function (data) {
+                            var numEvents;
+                            for (var i = 1; i <= monthLength; i++) {
+                                numEvents = data[i];
+                                if (numEvents == 1)
+                                    $( "#day" + i ).text( numEvents + " event" );
+                                else if (numEvents > 1)
+                                    $( "#day" + i ).text( numEvents + " events" );
+                            }
+                        }, "json");
+                });
+            </script>
+            
+            <script type="text/javascript">
+                var cal = new Calendar();
+                cal.generateHTML();
+                document.write(cal.getHTML());
+            </script>
+        </div>
+<!------------------------------- END OF CONTENT ---------------------------------------------------------->
+        <div data-role="footer" data-position="fixed" id="footer" data-tap-toggle="false">
+            <div data-role="navbar">
+              <ul>
+                <li data-theme="a">
+                  <a href="home.html" data-ajax="false"><i class="icon-home icon-2x"></i></a>
+                </li>
+                <li data-theme="a">
+                  <a href="search.html" data-ajax="false"><i class="icon-search icon-2x"></i></a>
+                </li>
+                <li data-theme="a">
+                  <a href="calendar.html" data-ajax="false"><i class="icon-calendar icon-2x"></i></a>
+                </li>
+                <li data-theme="a">
+                  <a href="profile.html" data-ajax="false"><i class="icon-user icon-2x"></i></a>
+                </li>
+              </ul>
+            </div>
+        </div>
+        <!-- /footer -->
+    </div>
+    <script>
+        $("body").css("overflow", "hidden");
+        $('#search-1').focus(function () {
+            $('#footer').hide();
+        });
+        $('#search-1').blur(function () {
+            $('#footer').show();
+        });
+    
+        /* Get network of the grid we are looking at */
+        if (getKeyValue('network')) {
+            var thisNetwork = getKeyValue('network');
+            switch (thisNetwork) {
+                case 'all':
+                    thisNetwork = 'Ottawa Area';
+                    break;
+                case 'algonquin':
+                    thisNetwork = 'Algonquin College';
+                    break;
+                case 'carletonu':
+                    thisNetwork = 'Carleton University';
+                    break;
+                case 'ottawau':
+                    thisNetwork = 'University of Ottawa';
+                    break;
+            }
+        } else {
+            var thisNetwork = localStorage.network;
+        };
+        document.getElementById("network").innerHTML = thisNetwork;
+
+        $(document).ready(function () {
+            //Previous Month is Clicked
+            $('#previousMonth').click(function () {
+                alert('You clicked previous month');
+            });
+            //Next Month is clicked
+            $('#nextMonth').click(function () {
+                alert('You clicked next month');
+            });
+        });
+    </script>
+</body>
+
+</html>

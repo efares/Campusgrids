@@ -1,0 +1,126 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>CampusGrids: Events</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
+        <link rel="stylesheet" href="css/style.css" />
+        <link rel="stylesheet" href="css/themes/campus.min.css" />
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.0/jquery.mobile.structure-1.3.0.min.css" />
+        <link rel="stylesheet" href="css/font-awesome.css" />
+        <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+        <script src="http://code.jquery.com/mobile/1.3.0/jquery.mobile-1.3.0.min.js"></script>
+        <script type="text/javascript" src="js/CG.js"></script>
+    </head>
+
+<body>
+    <div data-role="page" id="eventListAllPage" data-theme="a">
+        <!-- Header -->
+        <div data-role="panel" id="menuPanel" data-position="right" data-display="overlay" data-theme="b">
+                <ul data-role="listview">
+                    <li>
+                        <a href="allClubs.html" data-ajax="false">All Clubs</a>
+                    </li>
+                    <li>
+                        <a href="allEvents.html" data-ajax="false">All Events</a>
+                    </li>
+                    <li>
+                        <a href="findFriends.html" data-ajax="false">Find Friends</a>
+                    </li>
+                    <!--<li>
+                        <a href="promote.html">Promote</a>
+                    </li>-->
+                    <li>
+                        <a href="settings.html" data-ajax="false">Settings</a>
+                    </li>
+                    <li>
+                        <a href="feedback.html" data-ajax="false">Feedback</a>
+                    </li>
+                    <li>
+                        <a href="linkAccounts.html" data-ajax="false">Link Accounts</a>
+                    </li>
+                </ul>
+                <!-- <a style="margin-top: 50px;" href="#" data-rel="close" data-role="button" data-icon="delete" data-iconpos="left">Close Menu</a> -->
+        </div>
+        <div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme="b">
+            <img src="img/logo_small.png" class="smallLogo">
+            <h1 class="headerTitle">All Events</h1>
+            <a id="header" href="#menuPanel" class="ui-btn-right"><i style="font-size: 1.4em;" class="icon-reorder"></i></a>
+            <!-- Sub-Header for this page -->
+            <div class="ui-grid-a" style="border-top:1px solid grey;">
+                <div class="ui-block-a" style="width: 75%;">
+                    <div class="ui-btn-inner"><p id="date" style="font-size:x-large;"></p></div>
+                </div>
+                <div class="ui-block-b" style="width: 25%; text-align: right;">
+                    <a href="#" data-role="button" data-icon="arrow-l" data-iconpos="left" data-inline="true" data-rel="back">Back</a>
+                </div>
+            </div>
+        </div>
+        <!-- /header -->
+
+<!------------------------------- CONTENT ---------------------------------------------------------->
+        <div data-role="content" id="content" data-theme="a">
+            <ul id="eventList" data-role="listview" class="ui-icon-alt">
+            </ul>
+        </div>
+<!------------------------------- END OF CONTENT ---------------------------------------------------------->
+        <div data-role="footer" data-position="fixed" id="footer" data-tap-toggle="false">
+            <div data-role="navbar">
+              <ul>
+                <li data-theme="a">
+                  <a href="home.html" data-ajax="false"><i class="icon-home icon-2x"></i></a>
+                </li>
+                <li data-theme="a">
+                  <a href="search.html" data-ajax="false"><i class="icon-search icon-2x"></i></a>
+                </li>
+                <li data-theme="a">
+                  <a href="calendar.html" data-ajax="false"><i class="icon-calendar icon-2x"></i></a>
+                </li>
+                <li data-theme="a">
+                  <a href="profile.html" data-ajax="false"><i class="icon-user icon-2x"></i></a>
+                </li>
+              </ul>
+            </div>
+        </div>
+        <!-- /footer -->
+    </div>
+	<script type="text/javascript">
+        //Get the date from the URL
+	    var date = getKeyValue('date');
+
+	    var dateNumbers = date.split('-');
+	    var year = dateNumbers[0];
+	    var month = dateNumbers[1];
+	    var day = dateNumbers[2];
+        //This is to get the day of the week according to the date the user clicked
+	    var formattedDate = new Date(year, month, day);
+	    var dayOfWeek = formattedDate.getDay();
+        
+	    dayLabels = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+	    monthsLabels = ['', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
+        //This is in the header
+	    document.getElementById("date").innerHTML = dayLabels[dayOfWeek] + ', ' + monthsLabels[month] + ' ' + day;
+	    
+	    $(document).ready(function () {
+	        $.post("eventListAll.php", { "year": year, "month": month, "day": day },
+                function (data) {
+                    if (data[0] == 0) {
+                        $('#eventList').html('<p>Sorry, no events found on this date.</p>');
+                    }
+                    else {
+                        $('#eventList').html('');
+                            for (x in data) {
+                                // http://campusgrids.com/1mobileApp/img/defaultevent.png
+                                var eventPicUrl = data[x].event_picture;        // Get event picture URL
+                                eventPicUrl = eventPicUrl.substring(1);         // remove the .
+                                var attendeeCount = data[x].attendeeCount;
+                                $('#eventList').append("<li><a href='event.html?eventid=" + data[x].eventid + "' data-ajax='false'><img src='http://campusgrids.com/1mobileApp" + eventPicUrl + "' alt='event picture'><h2>" + data[x].event_title + "</h2><p>" + attendeeCount + " Are In</p></a></li>");
+                            }
+                        $("#eventList").listview("refresh");
+                    }
+                }, "json");
+            });
+	</script>
+</body>
+
+</html>

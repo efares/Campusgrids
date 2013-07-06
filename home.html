@@ -1,0 +1,185 @@
+<!DOCTYPE HTML>
+<html>
+<!-- BLUEHOST ACCOUNT PASSWORD: CGapp123! -->
+    <head>
+        <title>CampusGrids: Home</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
+        <link rel="stylesheet" href="css/themes/campus.min.css" />
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.0/jquery.mobile.structure-1.3.0.min.css" />
+        <link rel="stylesheet" href="css/idangerous.swiper.css">
+        <link rel="stylesheet" href="css/style.css" />
+        <link rel="stylesheet" href="css/font-awesome.css" />
+        <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+        <script src="http://code.jquery.com/mobile/1.3.0/jquery.mobile-1.3.0.min.js"></script>
+        <script type="text/javascript" src="js/CG.js"></script>
+    </head>
+    
+    <body>
+        <div data-role="page" id="Page" data-theme="a">
+
+        <script defer src="js/idangerous.swiper-1.8.8.min.js"></script>
+        <script type="text/javascript">
+            var account_type; 
+
+            function getDocHeight() {
+                var height = (
+                    'innerHeight' in window ? window.innerHeight :
+                    document.compatMode !== 'BackCompat' ? document.documentElement.clientHeight :
+                    document.body.clientHeight);
+                return height;
+            }
+            function resize() {
+                $('.swiper-container').height(getDocHeight() - 90);
+                $(".pushDown").css("height", $(".swiper-container").height() - 105);
+            }
+            window.onresize = function (event) {
+                resize();
+            }
+
+                $(document).delegate('#Page', 'pageinit', function () {
+                    $(function () {
+                        //Main Swiper
+                        swiper = new Swiper('.swiper-container', {
+                            loop: false
+                        });
+                    })
+                })
+
+                 $(document).delegate('#Page', 'pageshow', function () {
+                    $('.swiper-container').height(getDocHeight() - 90);
+                    $(".pushDown").css("height", $(".swiper-container").height() - 105);
+                })
+                 $(document).delegate(".ui-content", "scrollstart", false);
+            </script>
+
+        <!-- Header -->
+        <div data-role="panel" id="menuPanel" data-position="right" data-display="overlay" data-theme="b">
+                <ul data-role="listview">
+                    <li>
+                        <a href="allClubs.html" data-ajax="false">All Clubs</a>
+                    </li>
+                    <li>
+                        <a href="allEvents.html" data-ajax="false">All Events</a>
+                    </li>
+                    <li>
+                        <a href="findFriends.html" data-ajax="false">Find Friends</a>
+                    </li>
+                    <!--<li>
+                        <a href="promote.html">Promote</a>
+                    </li>-->
+                    <li>
+                        <a href="settings.html" data-ajax="false">Settings</a>
+                    </li>
+                    <li>
+                        <a href="feedback.html" data-ajax="false">Feedback</a>
+                    </li>
+                    <li>
+                        <a href="linkAccounts.html" data-ajax="false">Link Accounts</a>
+                    </li>
+                </ul>
+                <!-- <a style="margin-top: 50px;" href="#" data-rel="close" data-role="button" data-icon="delete" data-iconpos="left">Close Menu</a> -->
+        </div>
+        <div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme="b">
+            <img src="img/logo_small.png" class="smallLogo">
+            <h1 class="headerTitle">Home</h1>
+            <a id="header" href="#menuPanel" class="ui-btn-right"><i style="font-size: 1.4em;" class="icon-reorder"></i></a>
+            <!-- <a id="header" href="#menuPanel" data-role="button" data-iconpos="notext" data-icon="bars" class="ui-btn-right"></a> -->
+        </div>
+        <!-- /header -->
+<!------------------------------- CONTENT ---------------------------------------------------------->
+            <div data-role="content" id="content" data-theme="b" style="padding:0; margin:0;">
+                <div style="height:100%; width: 100%; margin: 0px auto 0px auto; background-color: #262626;">
+                    <div class="swiper-container">
+                        <div class="swiper-wrapper">
+                            <!--First Slide-->
+                            <div class="swiper-slide" style="background-image:url('img/IMG-20121231-WA000.jpg');
+                                background-repeat:no-repeat;
+                                background-size:cover; background-position: top center;">
+                                <!-- Any HTML content of the first slide goes here -->
+                                <div class="pushDown"></div>
+                                <div class="info">
+                                	<p>New Event: Movie night</p>
+                                    <p>Created by: Ryan Elias</p>
+                                </div>
+                            </div>
+                            <!--Second Slide-->
+                            <div class="swiper-slide" style="background-image:url('img/DSC00812.jpg');
+                                background-repeat:no-repeat;
+                                background-size:cover; background-position: top center;">
+                                <!-- Any HTML content of the second slide goes here -->
+                                <div class="pushDown"></div>
+                                <div class="info">
+                                    <p>Elias Fares uploaded 3 pictures</p>
+                                    <p>4 New Comments</p>
+                                </div>
+                            </div>
+                            <!--Third Slide-->
+                            <div class="swiper-slide" style="background-image:url('img/IMG_00000193.jpg');
+                                background-repeat:no-repeat;
+                                background-size:cover; background-position: top center;">
+                                <!-- Any HTML content of the third slide goes here -->
+                                <div class="pushDown"></div>
+                                <div class="info">
+                                    <p>Promoted: FloorPlay</p>
+                                    <p>102 Members</p>
+                                </div>
+                            </div>
+                            <div class="swiper-slide" style="background-image:url('img/Chiara2.jpg');
+                                background-repeat:no-repeat;
+                                background-size:cover; background-position: top center;">
+                                <!-- Any HTML content of the third slide goes here -->
+                                <div class="pushDown"></div>
+                                <div class="info">
+                                    <p>Promoted: FloorPlay</p>
+                                    <p>102 Members</p>
+                                </div>
+                            </div>
+                            <div class="swiper-slide" style="background-image:url('img/IMG_00000194.jpg');
+                                background-repeat:no-repeat;
+                                background-size:cover; background-position: top center;">
+                                <!-- Any HTML content of the third slide goes here -->
+                                <div class="pushDown"></div>
+                                <div class="info">
+                                    <p>Promoted: FloorPlay</p>
+                                    <p>102 Members</p>
+                                </div>
+                            </div>
+                            <!--Etc..-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+<!------------------------------- END OF CONTENT ---------------------------------------------------------->
+        <!-- Footer -->
+
+    <div data-role="footer" data-position="fixed" data-tap-toggle="false">
+    <div data-role="navbar">
+      <ul>
+        <li data-theme="a">
+          <a href="home.html" data-ajax="false"><i class="icon-home icon-2x"></i></a>
+        </li>
+        <li data-theme="a">
+          <a href="search.html" data-ajax="false"><i class="icon-search icon-2x"></i></a>
+        </li>
+        <li data-theme="a">
+          <a href="calendar.html" data-ajax="false"><i class="icon-calendar icon-2x"></i></a>
+        </li>
+        <li data-theme="a">
+          <a href="profile.html" data-ajax="false"><i class="icon-user icon-2x"></i></a>
+        </li>
+      </ul>
+    </div>
+  </div><!-- /footer -->
+        <script>
+            $("body").css("overflow", "hidden");
+
+            $('#logoutLink').click(function (e) {
+                localStorage.clear();
+                window.location = "index.html";
+                });
+        </script>
+    </div>
+    </body>
+
+</html>

@@ -1,0 +1,389 @@
+<!DOCTYPE HTML>
+<html>
+<!-- Followed the tutorial from: http://jszen.blogspot.ca/2007/03/how-to-build-simple-calendar-with.html 
+    ...Adding my own modifications -->
+    <head>
+        <title>CampusGrids: Your Calendar</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
+        <link rel="stylesheet" href="css/style.css" />
+        <link rel="stylesheet" href="css/themes/campus.min.css" />
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.0/jquery.mobile.structure-1.3.0.min.css" />
+        <link rel="stylesheet" href="css/font-awesome.css" />
+        <link rel="stylesheet" href="css/jquery.ui.datepicker.mobile.css" /> 
+        <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+        <script src="http://code.jquery.com/mobile/1.3.0/jquery.mobile-1.3.0.min.js"></script>
+        <script type="text/javascript" src="js/CG.js"></script>
+        <script type="text/javascript">
+            function clearButtons() {
+                $('#submitNewEvent').removeClass("ui-btn-active");
+            }
+            function checkEventName(eventName, control) {
+                eventName = $.trim(eventName)
+                var reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+                if (eventName == "") {
+                    $('#' + control).css("display", "block");
+                    $('#' + control).html("Event name is required");
+                    return false;
+                }
+                else if (eventName.length > 50) {
+                    $('#' + control).css("display", "block");
+                    $('#' + control).html("Event name is too long");
+                    return false;
+                }
+                else {
+                    $('#' + control).css("display", "none");
+                    return true;
+                }
+            }
+            function checkEventDate(eventDate, control) {
+                eventDate = $.trim(eventDate)
+                var reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+                if (eventDate == "") {
+                    $('#' + control).css("display", "block");
+                    $('#' + control).html("Date is required");
+                    return false;
+                }
+                else {
+                    $('#' + control).css("display", "none");
+                    return true;
+                }
+            }
+        </script>
+    </head>
+
+<body>
+    <div data-role="page" id="calendarPage" data-theme="a">
+        <script src="js/jQuery.ui.datepicker.js"></script>
+        <script src="js/jquery.ui.datepicker.mobile.js"></script>
+        
+        <script>
+            //reset type=date inputs to text
+            $(document).bind("mobileinit", function () {
+                $.mobile.page.prototype.options.degradeInputs.date = true;
+            });
+        </script>
+
+        <!-- Header -->
+        <div data-role="panel" id="menuPanel" data-position="right" data-display="overlay" data-theme="b">
+                <ul data-role="listview">
+                    <li>
+                        <a href="allClubs.html" data-ajax="false">All Clubs</a>
+                    </li>
+                    <li>
+                        <a href="allEvents.html" data-ajax="false">All Events</a>
+                    </li>
+                    <li>
+                        <a href="findFriends.html" data-ajax="false">Find Friends</a>
+                    </li>
+                    <!--<li>
+                        <a href="promote.html">Promote</a>
+                    </li>-->
+                    <li>
+                        <a href="settings.html" data-ajax="false">Settings</a>
+                    </li>
+                    <li>
+                        <a href="feedback.html" data-ajax="false">Feedback</a>
+                    </li>
+                    <li>
+                        <a href="linkAccounts.html" data-ajax="false">Link Accounts</a>
+                    </li>
+                </ul>
+                <!-- <a style="margin-top: 50px;" href="#" data-rel="close" data-role="button" data-icon="delete" data-iconpos="left">Close Menu</a> -->
+        </div>
+        <div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme="b">
+            <img src="img/logo_small.png" class="smallLogo">
+            <h1 class="headerTitle">Your Calendar</h1>
+            <a id="header" href="#menuPanel" class="ui-btn-right"><i style="font-size: 1.4em;" class="icon-reorder"></i></a>
+        </div>
+        <!-- /header -->
+
+<!------------------------------- CONTENT ---------------------------------------------------------->
+        <div data-role="content" id="content" data-theme="a" style="padding: 0px;margin: 0px;">
+            <script>
+
+                // these are labels for the days of the week
+                cal_days_labels = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+                // Give month length a value
+                var monthLength = 0;
+
+                // these are human-readable month name labels, in order
+                cal_months_labels = ['January', 'February', 'March', 'April',
+                                     'May', 'June', 'July', 'August', 'September',
+                                     'October', 'November', 'December'];
+
+                // these are the days of the week for each month, in order
+                cal_days_in_month = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+                var cal_current_date = new Date();             //Current date
+                var currentDay = cal_current_date.getDate();   //Day of the month (1-31)
+                var curYear;
+                var curMonth;
+
+                function Calendar(month, year) {
+                    this.month = (isNaN(month) || month == null) ? cal_current_date.getMonth() : month; //Month (0-11)
+                    curMonth = this.month;
+                    this.year = (isNaN(year) || year == null) ? cal_current_date.getFullYear() : year;  //The year (4 digits)
+                    curYear = this.year;
+                    this.html = '';
+                }
+
+                Calendar.prototype.generateHTML = function () {
+                    //We will need to know when the first day of the month was on (0-6)
+                    var firstDay = new Date(this.year, this.month, 1);
+                    var startingDay = firstDay.getDay();
+                    //This is used to determine how many blank days there are before the first day starts
+
+                    //How many days are in this month
+                    monthLength = cal_days_in_month[this.month];
+
+                    // compensate for leap year
+                    if (this.month == 1) { // February only!
+                        if ((this.year % 4 == 0 && this.year % 100 != 0) || this.year % 400 == 0) {
+                            monthLength = 29;
+                        }
+                    }
+                    var test = 0;
+                    //Building the HTML string for the calendar
+                    var monthName = cal_months_labels[this.month];
+                    var html = '<table class="calendar-table">';    //Make a table
+                    $('.headerTitle').html('<span id="previousMonth"><i class="icon-chevron-sign-left icon-large"></i></span>');
+                    $('.headerTitle').append(monthName + "&nbsp;" + this.year);
+                    $('.headerTitle').append('<span id="nextMonth"><i class="icon-chevron-sign-right icon-large"></i></span>');
+                    html += '<tr>';
+                    for (var i = 0; i <= 6; i++) {
+                        html += '<td class="calendar-daysOfWeek">';
+                        html += cal_days_labels[i];
+                        html += '</td>';
+                    }
+                    html += '</tr><tr>';
+
+                    var day = 1;
+                    // this loop is to create the weeks (rows)
+                    for (var i = 0; i < 6; i++) {
+                        // this loop is for weekdays (cells)
+                        for (var j = 0; j <= 6; j++) {
+                            //This if statement is only to highlight the current day (background color)
+                            if (day != currentDay) {
+                                html += '<td class="calendar-dayNumber">';
+                            } else {
+                                html += '<td class="calendar-currentDay calendar-dayNumber">';
+                            }
+                            //We want to skip inserting the blank days of this month
+                            if (day <= monthLength && (i > 0 || j >= startingDay)) {
+                                html += day;
+                                //Call function: numOfEvents to check if there are any events on this day
+                                var actualMonth = this.month + 1;   //Need to increment month because this.month is months from 0-11
+                                html += '<br /><div id="numberOfEvents' + day + '"><a href="eventList.html?date=' + this.year + '-' + actualMonth + '-' + day + '" class="numOfEvents" data-ajax="false"><span id="day' + day + '"></span></a></div>';
+                                //html += '<div id="addingAnEvent' + day + '"><a href="#popupAddEvent" style="text-decoration:none;color:green;" data-rel="popup" data-position-to="window" data-inline="true" data-theme="a" data-transition="pop"><p style="font-size:x-large;display:inline;">+</p></a></div>';
+                                day++;
+                            }
+                            html += '</td>';
+                        }
+                        // stop making rows if we've reached the end of the month
+                        if (day > monthLength) {
+                            break;
+                        } else {
+                            html += '</tr><tr>';
+                        }
+                    }
+                    html += '</tr></table>';
+
+                    this.html = html;
+                }
+
+                Calendar.prototype.getHTML = function () {
+                    return this.html;
+                }
+                //document.write(monthLength);
+
+                $(document).ready(function () {
+                    $.post('calendar.php', { "year": curYear, "month": curMonth + 1, "gridid": localStorage.gridid },
+                        function (data) {
+                            var numEvents;
+                            for (var i = 1; i <= monthLength; i++) {
+                                numEvents = data[i];
+                                if (numEvents == 1)
+                                    $("#day" + i).text(numEvents + " event");
+                                else if (numEvents > 1)
+                                    $("#day" + i).text(numEvents + " events");
+                            }
+                        }, "json");
+
+                    // Change td heights depending on document size to avoid scrolling
+                    var rowCount = $('.calendar-table tr').length;
+                    if($(window).height() <= 300)
+                        var tdHeight = $(window).height() / (rowCount + 4);
+                    else if($(window).height() <= 450)
+                        var tdHeight = $(window).height() / (rowCount + 3.5);
+                    else if($(window).height() <= 600)
+                        var tdHeight = $(window).height() / (rowCount + 3);
+                    else
+                        var tdHeight = $(window).height() / (rowCount + 2.5);
+                    $('.calendar-dayNumber').css('height', tdHeight + "px");    
+                });
+
+                var cal = new Calendar();
+                cal.generateHTML();
+                document.write(cal.getHTML());
+            </script>
+            
+                <div data-role="popup" id="popupAddEvent" data-overlay-theme="a" data-theme="a" class="ui-corner-all">
+                    <div data-role="header" data-theme="a" class="ui-corner-top">
+                        <h1>Add Event</h1>
+                    </div>
+                    <form id="addEventForm" action="event.html" method="post" data-ajax="false">
+                        <div style="padding:10px 20px;text-align:center;">
+                          <label for="eventName" class="ui-hidden-accessible">Event Name:</label>
+                          <p id="eventNameError" class="error"></p>
+                          <input type="text" name="eventName" id="eventName" value="" placeholder="Event Name" onblur="checkEventName($('#eventName').val(), 'eventNameError');" data-theme="a">
+                          <label for="eventDate" class="ui-hidden-accessible">Event Date:</label>
+                          <p id="eventDateError" class="error"></p>
+                          <input name="eventDate" id="eventDate" value="" data-theme="a" type="date" onblur="checkEventDate($('#eventDate').val(), 'eventDateError')">
+                            <div class="ui-icon-alt">
+                            <select id="eventTime" name="eventTime" data-iconpos="right">
+                                <option value="13:00:01">Event Time</option>
+                                <option value="06:00:01">6:00 AM</option>
+                                <option value="06:30:01">6:30 AM</option>
+                                <option value="07:00:01">7:00 AM</option>
+                                <option value="07:30:01">7:30 AM</option>
+                                <option value="08:00:01">8:00 AM</option>
+                                <option value="08:30:01">8:30 AM</option>
+                                <option value="09:00:01">9:00 AM</option>
+                                <option value="09:30:01">9:30 AM</option>
+                                <option value="10:00:01">10:00 AM</option>
+                                <option value="10:30:01">10:30 AM</option>
+                                <option value="11:00:01">11:00 AM</option>
+                                <option value="11:30:01">11:30 AM</option>
+                                <option value="12:00:01">12:00 PM</option>
+                                <option value="12:30:01">12:30 PM</option>
+                                <option value="13:00:01">1:00 PM</option>
+                                <option value="13:30:01">1:30 PM</option>
+                                <option value="14:00:01">2:00 PM</option>
+                                <option value="14:30:01">2:30 PM</option>
+                                <option value="15:00:01">3:00 PM</option>
+                                <option value="15:30:01">3:30 PM</option>
+                                <option value="16:00:01">4:00 PM</option>
+                                <option value="16:30:01">4:30 PM</option>
+                                <option value="17:00:01">5:00 PM</option>
+                                <option value="17:30:01">5:30 PM</option>
+                                <option value="18:00:01">6:00 PM</option>
+                                <option value="18:30:01">6:30 PM</option>
+                                <option value="19:00:01">7:00 PM</option>
+                                <option value="19:30:01">7:30 PM</option>
+                                <option value="20:00:01">8:00 PM</option>
+                                <option value="20:30:01">8:30 PM</option>
+                                <option value="21:00:01">9:00 PM</option>
+                                <option value="21:30:01">9:30 PM</option>
+                                <option value="22:00:01">10:00 PM</option>
+                                <option value="22:30:01">10:30 PM</option>
+                                <option value="23:00:01">11:00 PM</option>
+                                <option value="23:30:01">11:30 PM</option>
+                                <option value="00:00:01">12:00 AM</option>
+                                <option value="00:30:01">12:30 AM</option>
+                                <option value="01:00:01">1:00 AM</option>
+                                <option value="01:30:01">1:30 AM</option>
+                                <option value="02:00:01">2:00 AM</option>
+                                <option value="02:30:01">2:30 AM</option>
+                                <option value="03:00:01">3:00 AM</option>
+                                <option value="03:30:01">3:30 AM</option>
+                                <option value="04:00:01">4:00 AM</option>
+                                <option value="04:30:01">4:30 AM</option>
+                                <option value="05:00:01">5:00 AM</option>
+                                <option value="05:30:01">5:30 AM</option>
+                            </select>
+                        </div>
+                            <input type="submit" id="submitNewEvent" data-role="button" data-ajax="false" value="Create" data-theme="b" />
+                        </div>
+                    </form>
+                </div>
+            
+            <!-- Add event button -->
+            <div class="divAddNewEvent" style="text-align:center;">
+                <a href="#popupAddEvent" data-role="button" data-rel="popup" data-position-to="window" data-inline="true" data-transition="pop">+ Add Event</a>
+            </div>
+    </div>
+<!------------------------------- END OF CONTENT ---------------------------------------------------------->
+        <div data-role="footer" data-position="fixed" id="footer" data-tap-toggle="false">
+            <div data-role="navbar">
+              <ul>
+                <li data-theme="a">
+                  <a href="home.html" data-ajax="false"><i class="icon-home icon-2x"></i></a>
+                </li>
+                <li data-theme="a">
+                  <a href="search.html" data-ajax="false"><i class="icon-search icon-2x"></i></a>
+                </li>
+                <li data-theme="a">
+                  <a href="#" data-ajax="false"><i class="icon-calendar icon-2x"></i></a>
+                </li>
+                <li data-theme="a">
+                  <a href="profile.html" data-ajax="false"><i class="icon-user icon-2x"></i></a>
+                </li>
+              </ul>
+            </div>
+        </div>
+        <!-- /footer -->
+    </div>
+    <script>
+        // $("body").css("overflow", "hidden");
+        $('#search-1').focus(function () {
+            $('#footer').hide();
+        });
+        $('#search-1').blur(function () {
+            $('#footer').show();
+        });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            //Previous Month is Clicked
+            $('#previousMonth').click(function () {
+                alert('You clicked previous month');
+            });
+            //Next Month is clicked
+            $('#nextMonth').click(function () {
+                alert('You clicked next month');
+            });
+
+        });
+
+        var valEventName = false;
+        var valEventDate = false;
+
+        $('#submitNewEvent').on("tap", function (e) {
+            setTimeout(clearButtons, 20);
+            valEventName = checkEventName($('#eventName').val(), 'eventNameError');;
+            valEventDate = checkEventDate($('#eventDate').val(), 'eventDateError');;
+            if (!valEventName && !valEventDate) {
+                e.preventDefault(); // this prevents the standard link behaviour
+            }
+        });
+
+        $("#addEventForm").submit(function () {
+            if (valEventName && valEventDate) {
+                $.post("addEvent.php", { "eventName": $("#eventName").val(), "eventDate": $('#eventDate').val(), "eventTime": $('#eventTime').val(), "gridid": localStorage.gridid },
+                  function (data) {
+                      if (data.status == 0) {
+                          alert("Sorry there was a problem creating this event.");  // Creating event error here...
+                          return false;
+                      }
+                      else if (data.status == -1) {
+                          alert("This event already exists.");                      // Creating event error here...
+                          return false;
+                      }
+                      else {
+                          alert(data.event_name + " Event has been created.");
+                          window.location = "event.html?eventid=" + data.eventid;
+                      }
+                  }, "json");
+                return false;
+            }
+            else {
+                return false;
+            }
+        });
+
+    </script>
+</body>
+
+</html>

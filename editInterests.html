@@ -1,0 +1,139 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>CampusGrids: Interests</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
+        <link rel="stylesheet" href="css/style.css" />
+        <link rel="stylesheet" href="css/themes/campus.min.css" />
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.0/jquery.mobile.structure-1.3.0.min.css" />
+        <link rel="stylesheet" href="css/font-awesome.css" />
+        <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+        <script src="http://code.jquery.com/mobile/1.3.0/jquery.mobile-1.3.0.min.js"></script>
+        <script type="text/javascript" src="js/CG.js"></script>
+    </head>
+
+<body>
+    <div data-role="page" id="editInterestsPage" data-theme="a">
+        <!-- Header -->
+        <div data-role="panel" id="menuPanel" data-position="right" data-display="overlay" data-theme="b">
+            <ul data-role="listview">
+                    <li>
+                        <a href="allClubs.html" data-ajax="false">All Clubs</a>
+                    </li>
+                    <li>
+                        <a href="allEvents.html" data-ajax="false">All Events</a>
+                    </li>
+                    <li>
+                        <a href="findFriends.html" data-ajax="false">Find Friends</a>
+                    </li>
+                    <!--<li>
+                        <a href="promote.html">Promote</a>
+                    </li>-->
+                    <li>
+                        <a href="settings.html" data-ajax="false">Settings</a>
+                    </li>
+                    <li>
+                        <a href="feedback.html" data-ajax="false">Feedback</a>
+                    </li>
+                    <li>
+                        <a href="linkAccounts.html" data-ajax="false">Link Accounts</a>
+                    </li>
+                </ul>
+                <!-- <a style="margin-top: 50px;" href="#" data-rel="close" data-role="button" data-icon="delete" data-iconpos="left">Close Menu</a> -->
+        </div>
+        <div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme="b">
+            <img src="img/logo_small.png" class="smallLogo">
+            <h1 class="headerTitle">Edit Interests</h1>
+            <a id="header" href="#menuPanel" class="ui-btn-right"><i style="font-size: 1.4em;" class="icon-reorder"></i></a>
+        </div>
+        <!-- /header -->
+
+<!------------------------------- CONTENT ---------------------------------------------------------->
+    <div data-role="content" id="content" data-theme="a">
+        <form>
+            <fieldset data-role="controlgroup" data-type="horizontal">
+            <div class="ui-grid-b"> <!-- Make a 3 column grid -->
+                <!-- First Row -->
+                <input name="checkbox-h-2a" id="checkbox-h-2a" type="checkbox">
+                <label for="checkbox-h-2a" style="height:50px;margin:10px;border:1px solid lightgrey;"><p style="font-size:0.7em;">Athletics</p></label>
+                <input name="checkbox-h-2b" id="checkbox-h-2b" type="checkbox">
+                <label for="checkbox-h-2b" style="height:50px;margin:10px;border:1px solid lightgrey;"><p style="font-size:0.7em;">Arts</p></label>
+                <input name="checkbox-h-2c" id="checkbox-h-2c" type="checkbox">
+                <label for="checkbox-h-2c" style="height:50px;margin:10px;border:1px solid lightgrey;"><p style="font-size:0.7em;">Business</p></label>
+                <!-- Second Row -->
+                <input name="checkbox-h-2d" id="checkbox-h-2d" type="checkbox">
+                <label for="checkbox-h-2d" style="height:50px;margin:10px;border:1px solid lightgrey;"><p style="font-size:0.7em;">Commerce</p></label>
+                <input name="checkbox-h-2e" id="checkbox-h-2e" type="checkbox">
+                <label for="checkbox-h-2e" style="height:50px;margin:10px;border:1px solid lightgrey;"><p style="font-size:0.7em;">Dance</p></label>
+                <input name="checkbox-h-2f" id="checkbox-h-2f" type="checkbox">
+                <label for="checkbox-h-2f" style="height:50px;margin:10px;border:1px solid lightgrey;"><p style="font-size:0.7em;">Engineering</p></label>
+                <!-- Third Row -->
+                <input name="checkbox-h-2g" id="checkbox-h-2g" type="checkbox">
+                <label for="checkbox-h-2g" style="height:50px;margin:10px;border:1px solid lightgrey;"><p style="font-size:0.7em;">Journalism</p></label>
+                <input name="checkbox-h-2h" id="checkbox-h-2h" type="checkbox">
+                <label for="checkbox-h-2h" style="height:50px;margin:10px;border:1px solid lightgrey;"><p style="font-size:0.7em;">Computer<br />Science</p></label>
+                <input name="checkbox-h-2i" id="checkbox-h-2i" type="checkbox">
+                <label for="checkbox-h-2i" style="height:50px;margin:10px;border:1px solid lightgrey;"><p style="font-size:0.7em;">Law</p></label>
+                <!-- Fourth Row -->
+                <input name="checkbox-h-2j" id="checkbox-h-2j" type="checkbox">
+                <label for="checkbox-h-2j" style="height:50px;margin:10px;border:1px solid lightgrey;"><p style="font-size:0.7em;">Math</p></label>
+                <input name="checkbox-h-2k" id="checkbox-h-2k" type="checkbox">
+                <label for="checkbox-h-2k" style="height:50px;margin:10px;border:1px solid lightgrey;"><p style="font-size:0.7em;">Music</p></label>
+                <input name="checkbox-h-2l" id="checkbox-h-2l" type="checkbox">
+                <label for="checkbox-h-2l" style="height:50px;margin:10px;border:1px solid lightgrey;"><p style="font-size:0.7em;">Politics</p></label>
+                <!-- Fifth Row -->
+                <input name="checkbox-h-2m" id="checkbox-h-2m" type="checkbox">
+                <label for="checkbox-h-2m" style="height:50px;margin:10px;border:1px solid lightgrey;"><p style="font-size:0.7em;">Religion</p></label>
+                <input name="checkbox-h-2n" id="checkbox-h-2n" type="checkbox">
+                <label for="checkbox-h-2n" style="height:50px;margin:10px;border:1px solid lightgrey;"><p style="font-size:0.7em;">Science</p></label>
+                <input name="checkbox-h-2o" id="checkbox-h-2o" type="checkbox">
+                <label for="checkbox-h-2o" style="height:50px;margin:10px;border:1px solid lightgrey;"><p style="font-size:0.7em;">Social</p></label>
+                <!-- Sixth Row -->
+                <input name="checkbox-h-2p" id="checkbox-h-2p" type="checkbox">
+                <label for="checkbox-h-2p" style="height:50px;margin:10px;border:1px solid lightgrey;"><p style="font-size:0.7em;">Technology</p></label>
+                <input name="checkbox-h-2q" id="checkbox-h-2q" type="checkbox">
+                <label for="checkbox-h-2q" style="height:50px;margin:10px;border:1px solid lightgrey;"><p style="font-size:0.7em;">Humanities</p></label>
+                <input name="checkbox-h-2r" id="checkbox-h-2r" type="checkbox">
+                <label for="checkbox-h-2r" style="height:50px;margin:10px;border:1px solid lightgrey;"><p style="font-size:0.7em;">Other<br />Things</p></label>
+            </div>
+            </fieldset>
+            <div class="ui-grid-a">
+                <div class="ui-block-a"><a href="#" data-role="button" data-icon="arrow-l" data-iconpos="left" data-inline="true" data-rel="back" class="ui-icon-alt">Back</a></div>
+                <div class="ui-block-b"><input type="submit" data-inline="true" data-icon="check" data-theme="b" value="Save"/></div>
+            </div>
+        </form>
+    </div>
+<!------------------------------- END OF CONTENT ---------------------------------------------------------->
+        <div data-role="footer" data-position="fixed" id="footer" data-tap-toggle="false">
+            <div data-role="navbar">
+              <ul>
+                <li data-theme="a">
+                  <a href="home.html" data-ajax="false"><i class="icon-home icon-2x"></i></a>
+                </li>
+                <li data-theme="a">
+                  <a href="search.html" data-ajax="false"><i class="icon-search icon-2x"></i></a>
+                </li>
+                <li data-theme="a">
+                  <a href="calendar.html" data-ajax="false"><i class="icon-calendar icon-2x"></i></a>
+                </li>
+                <li data-theme="a">
+                  <a href="profile.html" data-ajax="false"><i class="icon-user icon-2x"></i></a>
+                </li>
+              </ul>
+            </div>
+        </div>
+        <!-- /footer -->
+    </div>
+    <script>
+        $("body").css("overflow", "hidden");
+        $('#search-1').focus(function () {
+            $('#footer').hide();
+        });
+        $('#search-1').blur(function () {
+            $('#footer').show();
+        });
+    </script>
+</body>
+
+</html>

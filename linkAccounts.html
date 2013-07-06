@@ -1,0 +1,181 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>CampusGrids: Link Accounts</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
+        <link rel="stylesheet" href="css/style.css" />
+        <link rel="stylesheet" href="css/themes/campus.min.css" />
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.0/jquery.mobile.structure-1.3.0.min.css" />
+        <link rel="stylesheet" href="css/font-awesome.css" />
+        <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+        <script src="http://code.jquery.com/mobile/1.3.0/jquery.mobile-1.3.0.min.js"></script>
+        <script type="text/javascript" src="js/CG.js"></script>
+    <script type="text/javascript">
+        function checkEmail(email, control) {
+            email = $.trim(email)
+            userEmail = localStorage.email
+            var reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+            if (email == "") {
+                $('#' + control).css("display", "block");
+                $('#' + control).html("Email address is required.");
+                //$('.ui-bar-a').css("border", "solid 1px red");
+                return false;
+            }
+            else if (!reg.test(email)) {
+                $('#' + control).css("display", "block");
+                $('#' + control).html("Invalid email address.");
+                return false;
+            }
+            else if (email == userEmail) {
+                $('#' + control).css("display", "block");
+                $('#' + control).html("Cannot link your own account.");
+                return false;
+            }
+            else {
+                $('#' + control).css("display", "none");
+                return true;
+            }
+        }
+        function checkPassword(password, control) {
+            password = $.trim(password)
+            if (password == "") {
+                $('#' + control).css("display", "block");
+                $('#' + control).html("Password is required.");
+                return false;
+            }
+            else if (password.length < 6) {
+                $('#' + control).css("display", "block");
+                $('#' + control).html("Password must be at least 6 characters.");
+                return false;
+            }
+            else {
+                $('#' + control).css("display", "none");
+                return true;
+            }
+        }
+    </script>
+    </head>
+
+<body>
+    <div data-role="page" id="linkAccountsPage" data-theme="a">
+        <!-- Header -->
+        <div data-role="panel" id="menuPanel" data-position="right" data-display="overlay" data-theme="b">
+            <ul data-role="listview">
+                    <li>
+                        <a href="allClubs.html" data-ajax="false">All Clubs</a>
+                    </li>
+                    <li>
+                        <a href="allEvents.html" data-ajax="false">All Events</a>
+                    </li>
+                    <li>
+                        <a href="findFriends.html" data-ajax="false">Find Friends</a>
+                    </li>
+                    <!--<li>
+                        <a href="promote.html">Promote</a>
+                    </li>-->
+                    <li>
+                        <a href="settings.html" data-ajax="false">Settings</a>
+                    </li>
+                    <li>
+                        <a href="feedback.html" data-ajax="false">Feedback</a>
+                    </li>
+                    <li>
+                        <a href="linkAccounts.html" data-ajax="false">Link Accounts</a>
+                    </li>
+                </ul>
+                <!-- <a style="margin-top: 50px;" href="#" data-rel="close" data-role="button" data-icon="delete" data-iconpos="left">Close Menu</a> -->
+        </div>
+        <div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme="b">
+            <img src="img/logo_small.png" class="smallLogo">
+            <h1 class="headerTitle">Link Accounts</h1>
+            <a id="header" href="#menuPanel" class="ui-btn-right"><i style="font-size: 1.4em;" class="icon-reorder"></i></a>
+        </div>
+        <!-- /header -->
+
+<!------------------------------- CONTENT ---------------------------------------------------------->
+        <div data-role="content">
+            <div style="text-align: center; padding-bottom: 20px;">
+                <h2 style="font-size: 1.3em;">Do you have more than one account or share an account with others?</h2>
+                <h1 style="font-size: 1.3em;">Log into it and link it.</h1>
+            </div>
+            <form id="linkForm" action="profile.html" method="post" data-ajax="false">
+                <label for="email" class="ui-hidden-accessible">Email Address:</label>
+                <p id="emailError" class="error"></p>
+                <input type="text" name="email" id="email" value="" placeholder="Account Email" onfocus="$('#footer').hide();" onmouseout="$('#footer').show();" onblur="checkEmail($('#email').val(), 'emailError');">
+                <label for="password" class="ui-hidden-accessible">Password:</label>
+                <p id="passwordError" class="error"></p>
+                <input type="password" name="password" id="password" value="" placeholder="Account Password" onfocus="$('#footer').hide();" onmouseout="$('#footer').show();" onblur="checkPassword($('#password').val(), 'passwordError');">
+                <input type="submit" name="link" id="link" data-role="button" data-ajax="false" value="Link" />
+            </form>
+        </div>
+<!------------------------------- END OF CONTENT ---------------------------------------------------------->
+        <div data-role="footer" data-position="fixed" id="footer" data-tap-toggle="false">
+            <div data-role="navbar">
+              <ul>
+                <li data-theme="a">
+                  <a href="home.html" data-ajax="false"><i class="icon-home icon-2x"></i></a>
+                </li>
+                <li data-theme="a">
+                  <a href="search.html" data-ajax="false"><i class="icon-search icon-2x"></i></a>
+                </li>
+                <li data-theme="a">
+                  <a href="calendar.html" data-ajax="false"><i class="icon-calendar icon-2x"></i></a>
+                </li>
+                <li data-theme="a">
+                  <a href="profile.html" data-ajax="false"><i class="icon-user icon-2x"></i></a>
+                </li>
+              </ul>
+            </div>
+        </div>
+        <!-- /footer -->
+    </div>
+        <script type="text/javascript">
+            var valEmail = false;
+            var valPassword = false;
+            var valLink = false;
+            
+            $("#linkForm").submit(function () {
+                valEmail = checkEmail($('#email').val(), 'emailError');
+                valPassword = checkPassword($('#password').val(), 'passwordError');
+                valLink = "link";
+                if (valEmail && valPassword && valLink) {
+                    $.post("login.php", { "email": $('#email').val(), "password": $('#password').val(), "link": $('#link').val() },
+                      function(data){
+                          if (data.status == 0) {
+                              $('#passwordError').css("display", "block");
+                              $('#passwordError').html("Invalid email/password combination.");
+                              return false;
+                          }
+                          else {
+                              $('#passwordError').css("display", "none");
+                              localStorage.gridid = data.gridid;
+                              localStorage.first_name = data.first_name;
+                              if (data.account_type = "U")
+                                  localStorage.last_name = data.last_name;
+                              localStorage.email = data.email;
+                              localStorage.password = data.password;
+                              localStorage.account_type = data.account_type;
+                              alert("This account is linked.");
+                              window.location = "profile.html";
+                          }
+                      }, "json");
+                    return false;
+                }
+                else {
+                    return false;
+                }
+            });
+    </script>
+    <script>
+        $("body").css("overflow", "hidden");
+        $('#search-1').focus(function () {
+            $('#footer').hide();
+        });
+        $('#search-1').blur(function () {
+            $('#footer').show();
+        });
+    </script>
+</body>
+
+</html>
