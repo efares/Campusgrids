@@ -78,6 +78,9 @@ html, body, div, span, object, iframe, a, h1, h2, h3, h4, h5, h6, p, del, dfn, e
 .headerTitle {
 /*Style the page titles here*/
 }
+.headerSubmit {
+/*Style the page submit button here*/
+}
 body {
   -webkit-text-size-adjust:none;
   font-family:sans-serif;
@@ -203,7 +206,17 @@ small {
 .ui-panel-content-wrap {
   background-image: none!important;
 }
-
+.interestCheckBox {
+  height:50px;
+  margin:5px!important;
+  border:1px solid lightgrey!important;
+}
+.interestCheckBox span {
+  font-size: 0.7em;
+}
+.interestCheckBox > span {
+  padding: 0.6em 3px !important;
+}
 
 
 

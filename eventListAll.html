@@ -100,9 +100,27 @@
 	    monthsLabels = ['', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
         //This is in the header
 	    document.getElementById("date").innerHTML = dayLabels[dayOfWeek] + ', ' + monthsLabels[month] + ' ' + day;
+
+	    //Get the network from the URL
+	    if (getKeyValue('network')) {
+	        var thisNetwork = getKeyValue('network');
+	        switch (thisNetwork) {
+	            case 'algonquin':
+	                var thisNetwork = 'Algonquin College';
+	                break;
+	            case 'carletonu':
+	                var thisNetwork = 'Carleton University';
+	                break;
+	            case 'ottawau':
+	                var thisNetwork = 'University of Ottawa';
+	                break;
+	        }
+	    } else {
+	        var thisNetwork = localStorage.network;
+	    };
 	    
 	    $(document).ready(function () {
-	        $.post("eventListAll.php", { "year": year, "month": month, "day": day },
+	        $.post("eventListAll.php", { "year": year, "month": month, "day": day, "network": thisNetwork },
                 function (data) {
                     if (data[0] == 0) {
                         $('#eventList').html('<p>Sorry, no events found on this date.</p>');

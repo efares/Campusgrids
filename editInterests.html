@@ -45,63 +45,61 @@
         <div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme="b">
             <img src="img/logo_small.png" class="smallLogo">
             <h1 class="headerTitle">Edit Interests</h1>
-            <a id="header" href="#menuPanel" class="ui-btn-right"><i style="font-size: 1.4em;" class="icon-reorder"></i></a>
+            <!-- onclick="document.getElementById('interestsForm').submit();" -->
+            <a href="#" class="headerSubmit" id="submitForm" data-icon="check" data-iconpos="left" class="ui-btn-right">Done</a>
+            <!-- <a id="header" href="#menuPanel" class="ui-btn-right"><i style="font-size: 1.4em;" class="icon-reorder"></i></a> -->
         </div>
         <!-- /header -->
 
 <!------------------------------- CONTENT ---------------------------------------------------------->
     <div data-role="content" id="content" data-theme="a">
-        <form>
-            <fieldset data-role="controlgroup" data-type="horizontal">
+        <form id="interestsForm" method="post" action="settings.html">
+            <fieldset data-role="controlgroup" data-type="horizontal" style="margin-top: 0;">
             <div class="ui-grid-b"> <!-- Make a 3 column grid -->
                 <!-- First Row -->
-                <input name="checkbox-h-2a" id="checkbox-h-2a" type="checkbox">
-                <label for="checkbox-h-2a" style="height:50px;margin:10px;border:1px solid lightgrey;"><p style="font-size:0.7em;">Athletics</p></label>
-                <input name="checkbox-h-2b" id="checkbox-h-2b" type="checkbox">
-                <label for="checkbox-h-2b" style="height:50px;margin:10px;border:1px solid lightgrey;"><p style="font-size:0.7em;">Arts</p></label>
-                <input name="checkbox-h-2c" id="checkbox-h-2c" type="checkbox">
-                <label for="checkbox-h-2c" style="height:50px;margin:10px;border:1px solid lightgrey;"><p style="font-size:0.7em;">Business</p></label>
+                <input name="checkbox-athletics" id="checkbox-athletics" type="checkbox" class="interestCheckBoxInput">
+                <label for="checkbox-athletics" class="interestCheckBox"><p>Athletics</p></label>
+                <input name="checkbox-arts" id="checkbox-arts" type="checkbox" class="interestCheckBoxInput">
+                <label for="checkbox-arts" class="interestCheckBox"><p>Arts</p></label>
+                <input name="checkbox-business" id="checkbox-business" type="checkbox" class="interestCheckBoxInput">
+                <label for="checkbox-business" class="interestCheckBox"><p>Business</p></label>
                 <!-- Second Row -->
-                <input name="checkbox-h-2d" id="checkbox-h-2d" type="checkbox">
-                <label for="checkbox-h-2d" style="height:50px;margin:10px;border:1px solid lightgrey;"><p style="font-size:0.7em;">Commerce</p></label>
-                <input name="checkbox-h-2e" id="checkbox-h-2e" type="checkbox">
-                <label for="checkbox-h-2e" style="height:50px;margin:10px;border:1px solid lightgrey;"><p style="font-size:0.7em;">Dance</p></label>
-                <input name="checkbox-h-2f" id="checkbox-h-2f" type="checkbox">
-                <label for="checkbox-h-2f" style="height:50px;margin:10px;border:1px solid lightgrey;"><p style="font-size:0.7em;">Engineering</p></label>
+                <input name="checkbox-commerce" id="checkbox-commerce" type="checkbox" class="interestCheckBoxInput">
+                <label for="checkbox-commerce" class="interestCheckBox"><p>Commerce</p></label>
+                <input name="checkbox-dance" id="checkbox-dance" type="checkbox" class="interestCheckBoxInput">
+                <label for="checkbox-dance" class="interestCheckBox"><p>Dance</p></label>
+                <input name="checkbox-engineering" id="checkbox-engineering" type="checkbox" class="interestCheckBoxInput" class="interestCheckBoxInput">
+                <label for="checkbox-engineering" class="interestCheckBox"><p>Engineering</p></label>
                 <!-- Third Row -->
-                <input name="checkbox-h-2g" id="checkbox-h-2g" type="checkbox">
-                <label for="checkbox-h-2g" style="height:50px;margin:10px;border:1px solid lightgrey;"><p style="font-size:0.7em;">Journalism</p></label>
-                <input name="checkbox-h-2h" id="checkbox-h-2h" type="checkbox">
-                <label for="checkbox-h-2h" style="height:50px;margin:10px;border:1px solid lightgrey;"><p style="font-size:0.7em;">Computer<br />Science</p></label>
-                <input name="checkbox-h-2i" id="checkbox-h-2i" type="checkbox">
-                <label for="checkbox-h-2i" style="height:50px;margin:10px;border:1px solid lightgrey;"><p style="font-size:0.7em;">Law</p></label>
+                <input name="checkbox-journalism" id="checkbox-journalism" type="checkbox" class="interestCheckBoxInput">
+                <label for="checkbox-journalism" class="interestCheckBox"><p>Journalism</p></label>
+                <input name="checkbox-compSci" id="checkbox-compSci" type="checkbox" class="interestCheckBoxInput">
+                <label for="checkbox-compSci" class="interestCheckBox"><p>Computer<br />Science</p></label>
+                <input name="checkbox-law" id="checkbox-law" type="checkbox" class="interestCheckBoxInput">
+                <label for="checkbox-law" class="interestCheckBox"><p>Law</p></label>
                 <!-- Fourth Row -->
-                <input name="checkbox-h-2j" id="checkbox-h-2j" type="checkbox">
-                <label for="checkbox-h-2j" style="height:50px;margin:10px;border:1px solid lightgrey;"><p style="font-size:0.7em;">Math</p></label>
-                <input name="checkbox-h-2k" id="checkbox-h-2k" type="checkbox">
-                <label for="checkbox-h-2k" style="height:50px;margin:10px;border:1px solid lightgrey;"><p style="font-size:0.7em;">Music</p></label>
-                <input name="checkbox-h-2l" id="checkbox-h-2l" type="checkbox">
-                <label for="checkbox-h-2l" style="height:50px;margin:10px;border:1px solid lightgrey;"><p style="font-size:0.7em;">Politics</p></label>
+                <input name="checkbox-math" id="checkbox-math" type="checkbox" class="interestCheckBoxInput">
+                <label for="checkbox-math" class="interestCheckBox"><p>Math</p></label>
+                <input name="checkbox-music" id="checkbox-music" type="checkbox" class="interestCheckBoxInput">
+                <label for="checkbox-music" class="interestCheckBox"><p>Music</p></label>
+                <input name="checkbox-politics" id="checkbox-politics" type="checkbox" class="interestCheckBoxInput">
+                <label for="checkbox-politics" class="interestCheckBox"><p>Politics</p></label>
                 <!-- Fifth Row -->
-                <input name="checkbox-h-2m" id="checkbox-h-2m" type="checkbox">
-                <label for="checkbox-h-2m" style="height:50px;margin:10px;border:1px solid lightgrey;"><p style="font-size:0.7em;">Religion</p></label>
-                <input name="checkbox-h-2n" id="checkbox-h-2n" type="checkbox">
-                <label for="checkbox-h-2n" style="height:50px;margin:10px;border:1px solid lightgrey;"><p style="font-size:0.7em;">Science</p></label>
-                <input name="checkbox-h-2o" id="checkbox-h-2o" type="checkbox">
-                <label for="checkbox-h-2o" style="height:50px;margin:10px;border:1px solid lightgrey;"><p style="font-size:0.7em;">Social</p></label>
+                <input name="checkbox-religion" id="checkbox-religion" type="checkbox" class="interestCheckBoxInput">
+                <label for="checkbox-religion" class="interestCheckBox"><p>Religion</p></label>
+                <input name="checkbox-science" id="checkbox-science" type="checkbox" class="interestCheckBoxInput">
+                <label for="checkbox-science" class="interestCheckBox"><p>Science</p></label>
+                <input name="checkbox-social" id="checkbox-social" type="checkbox" class="interestCheckBoxInput">
+                <label for="checkbox-social" class="interestCheckBox"><p>Social</p></label>
                 <!-- Sixth Row -->
-                <input name="checkbox-h-2p" id="checkbox-h-2p" type="checkbox">
-                <label for="checkbox-h-2p" style="height:50px;margin:10px;border:1px solid lightgrey;"><p style="font-size:0.7em;">Technology</p></label>
-                <input name="checkbox-h-2q" id="checkbox-h-2q" type="checkbox">
-                <label for="checkbox-h-2q" style="height:50px;margin:10px;border:1px solid lightgrey;"><p style="font-size:0.7em;">Humanities</p></label>
-                <input name="checkbox-h-2r" id="checkbox-h-2r" type="checkbox">
-                <label for="checkbox-h-2r" style="height:50px;margin:10px;border:1px solid lightgrey;"><p style="font-size:0.7em;">Other<br />Things</p></label>
+                <input name="checkbox-technology" id="checkbox-technology" type="checkbox" class="interestCheckBoxInput">
+                <label for="checkbox-technology" class="interestCheckBox"><p>Technology</p></label>
+                <input name="checkbox-humanities" id="checkbox-humanities" type="checkbox" class="interestCheckBoxInput">
+                <label for="checkbox-humanities" class="interestCheckBox"><p>Humanities</p></label>
+                <input name="checkbox-other" id="checkbox-other" type="checkbox" class="interestCheckBoxInput">
+                <label for="checkbox-other" class="interestCheckBox"><p>Other<br />Things</p></label>
             </div>
             </fieldset>
-            <div class="ui-grid-a">
-                <div class="ui-block-a"><a href="#" data-role="button" data-icon="arrow-l" data-iconpos="left" data-inline="true" data-rel="back" class="ui-icon-alt">Back</a></div>
-                <div class="ui-block-b"><input type="submit" data-inline="true" data-icon="check" data-theme="b" value="Save"/></div>
-            </div>
         </form>
     </div>
 <!------------------------------- END OF CONTENT ---------------------------------------------------------->
@@ -125,13 +123,55 @@
         </div>
         <!-- /footer -->
     </div>
-    <script>
-        $("body").css("overflow", "hidden");
-        $('#search-1').focus(function () {
-            $('#footer').hide();
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.post("editInterests.php", { "func": "retrieveInterests", "gridid": localStorage.gridid },
+                function (data) {
+                    if (data.status == 0) {
+                        alert("ERROR");     // Retrieve error here...
+                        return false;
+                    }
+                    else {
+                        //Display the retrieved interests (tags)
+                        alert("Retrieved");
+                    }
+                }, "json");
         });
-        $('#search-1').blur(function () {
-            $('#footer').show();
+
+        $('#submitForm').click(function () {
+            //is(:checked) will return true or false
+            $.post("editInterests.php", {
+                "func": "updateInterests",
+                "gridid": localStorage.gridid,
+                "athletics": $('#checkbox-athletics').is(':checked'),
+                "arts": $('#checkbox-arts').is(':checked'),
+                "business": $('#checkbox-business').is(':checked'),
+                "commerce": $('#checkbox-commerce').is(':checked'),
+                "dance": $('#checkbox-dance').is(':checked'),
+                "engineering": $('#checkbox-engineering').is(':checked'),
+                "journalism": $('#checkbox-journalism').is(':checked'),
+                "compSci": $('#checkbox-compSci').is(':checked'),
+                "law": $('#checkbox-law').is(':checked'),
+                "math": $('#checkbox-math').is(':checked'),
+                "music": $('#checkbox-music').is(':checked'),
+                "politics": $('#checkbox-politics').is(':checked'),
+                "religion": $('#checkbox-religion').is(':checked'),
+                "science": $('#checkbox-science').is(':checked'),
+                "social": $('#checkbox-social').is(':checked'),
+                "technology": $('#checkbox-technology').is(':checked'),
+                "humanities": $('#checkbox-humanities').is(':checked'),
+                "other": $('#checkbox-other').is(':checked'),
+            },
+                function (data) {
+                    if (data.status == 0) {
+                        alert("ERROR");     // Update error here...
+                        return false;
+                    }
+                    else {
+                        alert("Updated");
+                        //window.location = "settings.html";
+                    }
+                }, "json");
         });
     </script>
 </body>

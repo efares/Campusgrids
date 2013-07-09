@@ -45,38 +45,40 @@
         <div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme="b">
             <img src="img/logo_small.png" class="smallLogo">
             <h1 class="headerTitle">Edit Notifications</h1>
+            <!-- onclick="document.getElementById('notificationsForm').submit();" -->
+            <a href="#" class="headerSubmit" id="submitForm" data-icon="check" data-iconpos="left" >Done</a>
             <a id="header" href="#menuPanel" class="ui-btn-right"><i style="font-size: 1.4em;" class="icon-reorder"></i></a>
         </div>
         <!-- /header -->
 
 <!------------------------------- CONTENT ---------------------------------------------------------->
         <div data-role="content" id="content" data-theme="a">
-            <form>
+            <form id="notificationsForm" method="post" action="settings.html">
                 <fieldset data-role="controlgroup" data-iconpos="right">
-                    <legend>Personal Notifications</legend>
+                    <legend>Profile Notifications</legend>
                     <input name="checkbox-h-p1" id="checkbox-h-p1" type="checkbox">
-                    <label for="checkbox-h-p1">New Members</label>
+                    <label for="checkbox-h-p1">New member<br /><p style="font-size:small;color:grey;">Someone joins your grid</p></label>
                     <input name="checkbox-h-p2" id="checkbox-h-p2" type="checkbox">
-                    <label for="checkbox-h-p2">Messages</label>
+                    <label for="checkbox-h-p2">New message<br /><p style="font-size:small;color:grey;">Someone sends you a message</p></label>
                 </fieldset>
                 <fieldset data-role="controlgroup" data-iconpos="right">
                     <legend>Event Notifications</legend>
                     <input name="checkbox-h-e1" id="checkbox-h-e1" type="checkbox">
-                    <label for="checkbox-h-e1">New attendees</label>
+                    <label for="checkbox-h-e1">New attendees<br /><p style="font-size:small;color:grey;">Someone attends an event you created</p></label>
                     <input name="checkbox-h-e2" id="checkbox-h-e2" type="checkbox">
-                    <label for="checkbox-h-e2">Event Updates</label>
+                    <label for="checkbox-h-e2">Friend attends<br /><p style="font-size:small;color:grey;">Your friend attends an event you're in</p></label>
+                    <input name="checkbox-h-e3" id="checkbox-h-e3" type="checkbox">
+                    <label for="checkbox-h-e3">Event updates<br /><p style="font-size:small;color:grey;">An event you are attending has new information</p></label>
+                    <input name="checkbox-h-e4" id="checkbox-h-e4" type="checkbox">
+                    <label for="checkbox-h-e4">Event reminder<br /><p style="font-size:small;color:grey;">A day before the event you are attending</p></label>
                 </fieldset>
                 <fieldset data-role="controlgroup" data-iconpos="right">
                     <legend>Photo Notifications</legend>
                     <input name="checkbox-h-ph1" id="checkbox-h-ph1" type="checkbox">
-                    <label for="checkbox-h-ph1">New comment</label>
+                    <label for="checkbox-h-ph1">New comment<br /><p style="font-size:small;color:grey;">Someone comments on a picture you posted</p></label>
                     <input name="checkbox-h-ph2" id="checkbox-h-ph2" type="checkbox">
-                    <label for="checkbox-h-ph2">New like</label>
+                    <label for="checkbox-h-ph2">New like<br /><p style="font-size:small;color:grey;">Someone likes a picture you posted</p></label>
                 </fieldset>
-                <div class="ui-grid-a">
-                    <div class="ui-block-a"><a href="#" data-role="button" data-icon="arrow-l" data-iconpos="left" data-inline="true" data-rel="back" class="ui-icon-alt">Back</a></div>
-                    <div class="ui-block-b"><input type="submit" data-inline="true" data-icon="check" data-theme="b" value="Save"/></div>
-                </div>
             </form>
         </div>
 <!------------------------------- END OF CONTENT ---------------------------------------------------------->
@@ -107,6 +109,36 @@
         });
         $('#search-1').blur(function () {
             $('#footer').show();
+        });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.post("editNotifications.php", { "func": "retrieveNotifications", "gridid": localStorage.gridid },
+                function (data) {
+                    if (data.status == 0) {
+                        alert("ERROR");     // Retrieve error here...
+                        return false;
+                    }
+                    else {
+                        //Display the retrieved interests (tags)
+                        alert(data.func);
+                    }
+                }, "json");
+        });
+
+        $('#submitForm').click(function () {
+            //is(:checked) will return true or false
+            $.post("editNotifications.php", { "func": "updateNotifications", "gridid": localStorage.gridid },
+                function (data) {
+                    if (data.status == 0) {
+                        alert("ERROR");     // Update error here...
+                        return false;
+                    }
+                    else {
+                        alert(data.func);
+                        //window.location = "settings.html";
+                    }
+                }, "json");
         });
     </script>
 </body>

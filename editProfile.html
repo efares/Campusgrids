@@ -45,6 +45,8 @@
         <div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme="b">
             <img src="img/logo_small.png" class="smallLogo">
             <h1 class="headerTitle">Edit Profile</h1>
+            <!-- onclick="document.getElementById('profileForm').submit();" -->
+            <a href="#" class="headerSubmit" id="submitForm" data-icon="check" data-iconpos="left" >Done</a>
             <a id="header" href="#menuPanel" class="ui-btn-right"><i style="font-size: 1.4em;" class="icon-reorder"></i></a>
         </div>
         <!-- /header -->
@@ -52,40 +54,107 @@
 <!------------------------------- CONTENT ---------------------------------------------------------->
     <div data-role="content" id="content" data-theme="a">
         <div id="userProfile">
-            <form>
+            <form id="profileForm" method="post" action="settings.html">
                 <fieldset data-role="controlgroup" data-type="horizontal">
                     <legend>Gender:</legend>
                     <input name="radio-choice-gender" id="radio-choice-genderMale" value="m" type="radio">
                     <label for="radio-choice-genderMale">Male</label>
                     <input name="radio-choice-gender" id="radio-choice-genderFemale" value="f" type="radio">
                     <label for="radio-choice-genderFemale">Female</label>
-                    <input name="radio-choice-gender" id="radio-choice-genderNo" value="no" checked="checked" type="radio">
+                    <input name="radio-choice-gender" id="radio-choice-genderNo" value="n" checked="checked" type="radio">
                     <label for="radio-choice-genderNo">Don't ask</label>
                 </fieldset>
-                <label for="birthday">Birthday:</label>
-                <input data-clear-btn="true" name="birthday" id="birthday" value="" type="date"> 
-                <label for="userPhone">Cell Phone Number:</label>
-                <input data-clear-btn="true" name="userPhone" id="userPhone" value="" type="tel">
-                <label for="userBio">Bio:</label>
-                <textarea cols="40" rows="12" name="userBio" id="userBio"></textarea>
-                <div class="ui-grid-a">
-                    <div class="ui-block-a"><a href="#" data-role="button" data-icon="arrow-l" data-iconpos="left" data-inline="true" data-rel="back" class="ui-icon-alt">Back</a></div>
-                    <div class="ui-block-b"><input type="submit" data-inline="true" data-icon="check" data-theme="b" value="Save"/></div>
+                <label for="select-programU">Program of Study:</label>
+                <div data-role="fieldcontatin" class="ui-icon-alt">
+                    <select id="select-programU" data-iconpos="right">
+                        <option value="Other">Major</option>
+                        <option value="Aboriginal Studies">Aboriginal Studies</option>
+                        <option value="Accounting">Accounting</option>
+                        <option value="Anthropology">Anthropology</option>
+                        <option value="Arabic">Arabic</option>
+                        <option value="Architectural Studies">Architectural Studies</option>
+                        <option value="Arts">Arts</option>
+                        <option value="Biochemistry">Biochemistry</option>
+                        <option value="Biology">Biology</option>
+                        <option value="BiomedicalScience">Biomedical Science</option>
+                        <option value="Business">Business</option>
+                        <option value="Canadian Studies">Canadian Studies</option>
+                        <option value="Chemistry">Chemistry</option>
+                        <option value="Classical Studies">Classical Studies</option>
+                        <option value="Cognitive Science">Cognitive Science</option>
+                        <option value="Commerce">Commerce</option>
+                        <option value="Communication">Communication</option>
+                        <option value="Computer Science">Computer Science</option>
+                        <option value="Criminology">Criminology</option>
+                        <option value="Economics">Economics</option>
+                        <option value="Engineering">Engineering</option>
+                        <option value="English">English</option>
+                        <option value="Entrepreneurship">Entrepreneurship</option>
+                        <option value="Environmental Studies">Environmental Studies</option>
+                        <option value="Ethics & Society">Ethics & Society</option>
+                        <option value="Finance">Finance</option>
+                        <option value="French Studies">French Studies</option>
+                        <option value="Geography">Geography</option>
+                        <option value="Geology">Geology</option>
+                        <option value="Geomatics & Spatial Analysis">Geomatics & Spatial Analysis</option>
+                        <option value="German">German</option>
+                        <option value="Global Politics">Global Politics</option>
+                        <option value="Health Sciences">Health Sciences</option>
+                        <option value="History">History</option>
+                        <option value="Human Kinetics">Human Kinetics</option>
+                        <option value="Human Resource Management">Human Resource Management</option>
+                        <option value="Human Rights">Human Rights</option>
+                        <option value="Humanities">Humanities</option>
+                        <option value="Industrial Design">Industrial Design</option>
+                        <option value="Information Technology">Information Technology</option>
+                        <option value="International Business">International Business</option>
+                        <option value="International Management">International Management</option>
+                        <option value="International Studies">International Studies</option>
+                        <option value="Italian">Italian</option>
+                        <option value="Journalism">Journalism</option>
+                        <option value="Latin Studies">Latin Studies</option>
+                        <option value="Law">Law</option>
+                        <option value="Linguistics">Linguistics</option>
+                        <option value="Management Studies">Management Studies</option>
+                        <option value="Marketing">Marketing</option>
+                        <option value="Mathematics">Mathematics</option>
+                        <option value="Medicine">Medicine</option>
+                        <option value="Music">Music</option>
+                        <option value="Nursing">Nursing</option>
+                        <option value="Philosophy">Philosophy</option>
+                        <option value="Physics">Physics</option>
+                        <option value="Political Science">Political Science</option>
+                        <option value="Public Affairs & Policy Management">Public Affairs & Policy Management</option>
+                        <option value="Religious Studies">Religious Studies</option>
+                        <option value="Russian">Russian</option>
+                        <option value="Science">Science</option>
+                        <option value="Social Studies">Social Studies</option>
+                        <option value="Sociology">Sociology</option>
+                        <option value="Spanish">Spanish</option>
+                        <option value="Theatre">Theatre</option>
+                        <option value="Visual Studies">Visual Studies</option>
+                        <option value="Women Studies">Women Studies</option>
+                        <option value="Other">Other</option>
+                    </select>
                 </div>
+                <label for="birthday">Birthday:</label>
+                <input data-clear-btn="true" name="birthday" id="birthday" value="" type="date">
+                <label for="userPhone">Cell Phone Number:</label>
+                <input data-clear-btn="true" name="userPhone" id="userPhone" value="" type="tel" placeholder="613-888-2222">
+                <label for="userBio">Bio:</label>
+                <textarea cols="40" rows="12" name="userBio" id="userBio" placeholder="Write about yourself..."></textarea>
             </form>
         </div>
         <div id="clubProfile">
             <form>
-                <label for="url">Club Website:</label>
-                <input data-clear-btn="true" name="url" id="url" value="" type="url">
+                <label for="clubUrl">Club Website:</label>
+                <input data-clear-btn="true" name="clubUrl" id="clubUrl" value="" type="url" placeholder="www.clubsite.com">
                 <label for="clubPhone">Club Phone Number:</label>
-                <input data-clear-btn="true" name="clubPhone" id="clubPhone" value="" type="tel">
+                <input data-clear-btn="true" name="clubPhone" id="clubPhone" value="" type="tel" placeholder="613-888-2222">
+                <label for="clubEmail">Club Email:</label>
+                <input data-clear-btn="true" name="clubEmail" id="clubEmail" value="" type="email" placeholder="club@email.com">
                 <label for="clubBio">Club Bio:</label>
-                <textarea cols="40" rows="12" name="clubBio" id="clubBio"></textarea>
-                <div class="ui-grid-a">
-                    <div class="ui-block-a"><a href="#" data-role="button" data-icon="arrow-l" data-iconpos="left" data-inline="true" data-rel="back" class="ui-icon-alt">Back</a></div>
-                    <div class="ui-block-b"><input type="submit" data-inline="true" data-icon="check" data-theme="b" value="Save"/></div>
-                </div>
+                <textarea cols="40" rows="12" name="clubBio" id="clubBio" placeholder="Write about your club..."></textarea>
             </form>
             <div class="ui-grid-solo">
                 <div class="ui-block-a"><a href="#" data-role="button" data-inline="true" class="ui-icon-alt">Request to be an Official Club</a></div>
@@ -122,7 +191,7 @@
             $('#footer').show();
         });
     </script>
-    <script>
+    <script type="text/javascript">
         if (localStorage.account_type == 'U') {
             //Only display the user edit options
             $('#clubProfile').hide();
@@ -131,6 +200,67 @@
             //Only display the club edit options
             $('#userProfile').hide();
         }
+
+        $(document).ready(function () {
+            $.post("editProfile.php", { "func": "retrieveGridInfo", "gridid": localStorage.gridid, "accountType": localStorage.account_type },
+                function (data) {
+                    if (data.status == 0) {
+                        alert("ERROR");     // Retrieve error here...
+                        return false;
+                    }
+                    else {
+                        alert('hello');
+                        //alert(data.gender + '\n' + data.userPhone + '\n' + data.birthday + '\n' + data.program + '\n' + data.userBio);
+                    }
+                }, "json");
+        });
+
+        $('#submitForm').click(function () {
+            /*------------------- Updating a User ----------------------------------------*/
+            if (localStorage.account_type == 'U') {
+                $.post("editProfile.php", {
+                    "func": "updateGridInfo",
+                    "gridid": localStorage.gridid,
+                    "accountType": localStorage.account_type,
+                    "userPhone": $('#userPhone').val(),
+                    "userBio": $('#userBio').val(),
+                    "birthday": $('#birthday').val(),
+                    "program": $('#select-programU').val(),
+                    "gender": $('input:radio[name=radio-choice-gender]:checked').val()
+                },
+                function (data) {
+                    if (data.status == 0) {
+                        alert("ERROR");     // Update error here...
+                        return false;
+                    }
+                    else {
+                        alert('Updated user profile');
+                        //window.location = "settings.html";
+                    }
+                }, "json");
+            /*------------------- Updating a Club ----------------------------------------*/
+            } else if (localStorage.account_type == 'C') {
+                $.post("editProfile.php", {
+                    "func": "updateGridInfo",
+                    "gridid": localStorage.gridid,
+                    "accountType": localStorage.account_type,
+                    "clubUrl": $('#clubUrl').val(),
+                    "clubPhone": $('#clubPhone').val(),
+                    "clubEmail": $('#clubEmail').val(),
+                    "clubBio": $('#clubBio').val()
+                },
+                function (data) {
+                    if (data.status == 0) {
+                        alert("ERROR");     // Update error here...
+                        return false;
+                    }
+                    else {
+                        alert('Updated club profile');
+                        //window.location = "settings.html";
+                    }
+                }, "json");
+            }
+        });
     </script>
 </body>
 

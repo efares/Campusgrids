@@ -338,11 +338,11 @@
         $(document).ready(function () {
             //Previous Month is Clicked
             $('#previousMonth').click(function () {
-                alert('You clicked previous month');
+                alert('Previous month');
             });
             //Next Month is clicked
             $('#nextMonth').click(function () {
-                alert('You clicked next month');
+                alert('Next month');
             });
 
         });
@@ -361,7 +361,7 @@
 
         $("#addEventForm").submit(function () {
             if (valEventName && valEventDate) {
-                $.post("addEvent.php", { "eventName": $("#eventName").val(), "eventDate": $('#eventDate').val(), "eventTime": $('#eventTime').val(), "gridid": localStorage.gridid },
+                $.post("addEvent.php", { "eventName": $("#eventName").val(), "eventDate": $('#eventDate').val(), "eventTime": $('#eventTime').val(), "gridid": localStorage.gridid, "eventNetwork": localStorage.network },
                   function (data) {
                       if (data.status == 0) {
                           alert("Sorry there was a problem creating this event.");  // Creating event error here...

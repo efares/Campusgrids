@@ -23,7 +23,7 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
 		    $stmt->bind_param("ss", $email, $password);                           // Bind parameters
 		    $stmt->execute();                                                     // Execute statement
 		    $stmt->bind_result($gridid, $first_name, $last_name, $profile_picture, $network, $account_type);  // Bind result variables
-        
+        	
 		    /* fetch values */
 		    $count = 0;
 		    while ($stmt->fetch()) {
@@ -44,7 +44,7 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
                 //Check if these two accounts are already linked
     	            $selectQuery = "SELECT * FROM links WHERE gridid1=? AND gridid2=?";   // Check if link already exists in DB
 	                if ($selectStmt = $mysqli->prepare($selectQuery)) {
-		                $selectStmt->bind_param("ss", $gridid1, $gridid2);                  // Bind the gridid's and execute the statement
+		                $selectStmt->bind_param("ss", $gridid1, $gridid2);                // Bind the gridid's and execute the statement
 	                    $selectStmt->execute();
 	                    $selectStmt->store_result();                                      // Store the result
 	                    // If the number of rows is greater than 0, then the link already exists
@@ -52,11 +52,11 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
                         //Insert the new link into the database
                         $linkQuery = "INSERT INTO links (gridid1, gridid2) VALUES (?,?)"; // Insert query...
                         $linkStmt = $mysqli->prepare($linkQuery);                         // Prepare the query
-		                    $linkStmt->bind_param("ss", $gridid1, $gridid2);                  // Bind the variables
-		                    $linkStmt->execute();                                             // Execute the query
-		                    $linkStmt->close();                                               // Close statement
+		                    $linkStmt->bind_param("ss", $gridid1, $gridid2);              // Bind the variables
+		                    $linkStmt->execute();                                         // Execute the query
+		                    $linkStmt->close();                                           // Close statement
                       }
-	                    $selectStmt->close();                                               // close statement
+	                    $selectStmt->close();                                             // close statement
 	                }
               }
         

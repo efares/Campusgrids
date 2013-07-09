@@ -11,6 +11,39 @@
         <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
         <script src="http://code.jquery.com/mobile/1.3.0/jquery.mobile-1.3.0.min.js"></script>
         <script type="text/javascript" src="js/CG.js"></script>
+        <script type="text/javascript">
+            /* Get network of the grid we are looking at */
+            if (getKeyValue('network')) {
+                var thisNetwork = getKeyValue('network');
+                switch (thisNetwork) {
+                    case 'all':
+                        thisNetwork = 'Ottawa Area';
+                        break;
+                    case 'algonquin':
+                        thisNetwork = 'Algonquin College';
+                        break;
+                    case 'carletonu':
+                        thisNetwork = 'Carleton University';
+                        break;
+                    case 'ottawau':
+                        thisNetwork = 'University of Ottawa';
+                        break;
+                }
+            } else {
+                var thisNetwork = localStorage.network;
+            };
+
+            $(document).ready(function () {
+                //Previous Month is Clicked
+                $('#previousMonth').click(function () {
+                    alert('previous month');
+                });
+                //Next Month is clicked
+                $('#nextMonth').click(function () {
+                    alert('next month');
+                });
+            });
+        </script>
     </head>
 
 <body>
@@ -145,7 +178,7 @@
                                 html += day;
                                 //Call function: numOfEvents to check if there are any events on this day
                                 var actualMonth = this.month + 1;   //Need to increment month because this.month is months from 0-11
-                                html += '<br /><a href="eventListAll.html?date=' + this.year + '-' + actualMonth + '-' + day + '" class="numOfEvents" data-ajax="false"><span id="day' + day + '"></span></a>';
+                                html += '<br /><a href="eventListAll.html?date=' + this.year + '-' + actualMonth + '-' + day + '&network=' + thisNetwork + '" class="numOfEvents" data-ajax="false"><span id="day' + day + '"></span></a>';
                                 day++;
                             }
                             html += '</td>';
@@ -168,7 +201,7 @@
                 //document.write(monthLength);
 
                 $(document).ready(function () {
-                    $.post('allEvents.php', { "year": curYear, "month": curMonth + 1 },
+                    $.post('allEvents.php', { "year": curYear, "month": curMonth + 1, "network": thisNetwork },
                         function (data) {
                             var numEvents;
                             for (var i = 1; i <= monthLength; i++) {
@@ -217,39 +250,9 @@
         $('#search-1').blur(function () {
             $('#footer').show();
         });
-    
-        /* Get network of the grid we are looking at */
-        if (getKeyValue('network')) {
-            var thisNetwork = getKeyValue('network');
-            switch (thisNetwork) {
-                case 'all':
-                    thisNetwork = 'Ottawa Area';
-                    break;
-                case 'algonquin':
-                    thisNetwork = 'Algonquin College';
-                    break;
-                case 'carletonu':
-                    thisNetwork = 'Carleton University';
-                    break;
-                case 'ottawau':
-                    thisNetwork = 'University of Ottawa';
-                    break;
-            }
-        } else {
-            var thisNetwork = localStorage.network;
-        };
+    </script>
+    <script>
         document.getElementById("network").innerHTML = thisNetwork;
-
-        $(document).ready(function () {
-            //Previous Month is Clicked
-            $('#previousMonth').click(function () {
-                alert('You clicked previous month');
-            });
-            //Next Month is clicked
-            $('#nextMonth').click(function () {
-                alert('You clicked next month');
-            });
-        });
     </script>
 </body>
 

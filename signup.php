@@ -3,7 +3,7 @@
 include_once "connect.php";
 include_once "pictureResize.php";
 
-$valid = true; // Start the sign up as valid
+$valid = true; 		// Start the sign up as valid
 $validEmail = true; // Same for email
 $email = "";
 $password = "";
@@ -53,7 +53,7 @@ if (isset($_POST["func"]) && isset($_POST["email"]) && isset($_POST["password"])
 			if ($valid) {
 				$password = md5($password);               // Encrypt password
 				$query = "INSERT INTO grids (first_name, last_name, email, password, network, program, account_type) VALUES (?,?,?,?,?,?,'U')"; // Insert query...
-        $stmt = $mysqli->prepare($query); // Prepare the query
+        		$stmt = $mysqli->prepare($query); // Prepare the query
 				$stmt->bind_param("ssssss", $fName, $lName, $email, $password, $network, $program); // Bind the variables
 				$stmt->execute(); // Execute the query
 				$stmt->close(); // Close statement
@@ -257,17 +257,17 @@ else {
 
 // If everything is valid(user/club has been added), return the grid data
 if ($valid) {
-	$query = "SELECT gridid, first_name, last_name, account_type FROM grids WHERE email=?"; // get grid data from DB
+	$query = "SELECT gridid, first_name, last_name, network, account_type FROM grids WHERE email=?"; // get grid data from DB
 		if ($stmt = $mysqli->prepare($query)) {
 
 		    $stmt->bind_param("s", $email);                                       // Bind email
 		    $stmt->execute();                                                     // Execute statement
-		    $stmt->bind_result($gridid, $first_name, $last_name, $account_type);  // bind the result
+		    $stmt->bind_result($gridid, $first_name, $last_name, $network, $account_type);  // bind the result
 
 		    /* fetch values */
 		    while ($stmt->fetch()) {
 		    	// Create array of data
-		    	$arr = array('status' => 1, 'gridid' => $gridid, 'first_name' => $first_name, 'last_name' => $last_name, 'email' => $email, 'password' => $password, 'account_type' => $account_type);
+		    	$arr = array('status' => 1, 'gridid' => $gridid, 'first_name' => $first_name, 'last_name' => $last_name, 'email' => $email, 'password' => $password, 'network' => $network, 'account_type' => $account_type);
 		    }
 
 		    /* close statement */

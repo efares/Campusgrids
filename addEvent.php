@@ -9,20 +9,21 @@ $eventName = "";
 $arr = array('status' => 0);
 
 // Make sure the post variables are set
-if (isset($_POST["eventName"]) && isset($_POST["eventDate"]) && isset($_POST["eventTime"]) && isset($_POST["gridid"])) {
+if (isset($_POST["eventName"]) && isset($_POST["eventDate"]) && isset($_POST["eventTime"]) && isset($_POST["gridid"]) && isset($_POST["eventNetwork"])) {
 	// Get variables useful for both addUser and addClub, make sure to trim
 	$eventName = trim(ucfirst(strip_tags($_POST["eventName"])));   //ucfirst makes first character in the string capital
 	$eventDate = trim($_POST["eventDate"]);
 	$eventTime = trim($_POST["eventTime"]);
+	$eventNetwork = trim($_POST["eventNetwork"]);
 	$gridid = trim($_POST["gridid"]);
 	
 	//Format the date to be compatible with the DB TIMESTAMP format
 	$eventDateTime = $eventDate . ' ' . $eventTime;
 
 	//Check if this event already exists
-	$query = "SELECT * FROM events WHERE gridid=? AND event_title=? AND start_date=?"; // Check if event already exists in DB
+	$query = "SELECT * FROM events WHERE gridid=? AND event_title=? AND start_date=? AND event_network=?"; // Check if event already exists in DB
 	if ($stmt = $mysqli->prepare($query)) {
-		$stmt->bind_param("sss", $gridid, $eventName, $eventDateTime);			// Bind the email and execute the statement
+		$stmt->bind_param("ssss", $gridid, $eventName, $eventDateTime, $eventNetwork);			// Bind the email and execute the statement
 	    $stmt->execute();
 	    $stmt->store_result();							// Store the result
 
@@ -43,9 +44,9 @@ if (isset($_POST["eventName"]) && isset($_POST["eventDate"]) && isset($_POST["ev
 
 			// If still valid, add event to DB
 			if ($valid) {
-				$query = "INSERT INTO events (gridid, event_title, start_date) VALUES (?,?,?)"; // Insert query...
+				$query = "INSERT INTO events (gridid, event_title, start_date, event_network) VALUES (?,?,?,?)"; // Insert query...
 				$stmt = $mysqli->prepare($query);                               // Prepare the query
-				$stmt->bind_param("sss", $gridid, $eventName, $eventDateTime);  // Bind the variables
+				$stmt->bind_param("ssss", $gridid, $eventName, $eventDateTime, $eventNetwork);  // Bind the variables
 				$stmt->execute();                                               // Execute the query
 				$stmt->close();                                                 // Close statement
 			}
@@ -58,7 +59,7 @@ else {
 	$valid = false;
 }
 
-// If everything is valid(event has been added), return the event data
+// If everything is valid (event has been added), return the event data
 if ($valid) {
 	$query = "SELECT eventid, event_title FROM events WHERE gridid=? AND event_title=? AND start_date=?"; // get event data from DB
 		if ($stmt = $mysqli->prepare($query)) {

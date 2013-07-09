@@ -102,6 +102,11 @@
 	    document.getElementById("date").innerHTML = dayLabels[dayOfWeek] + ', ' + monthsLabels[month] + ' ' + day;
 
 	    $(document).ready(function () {
+	        /*eventList is called from calendar.html This assumes that the user is looking at their own calendar and so
+            it only send in the date to eventList.html Now, when the user is looking at their personal list of events on this
+            day, they should see the list of events they created (already in effect that is why we send the gridid to eventList.php)
+            and they should also see the list of events that have been created by grids they have joined (this is NOT in effect yet)
+            */
 	        $.post("eventList.php", { "year": year, "month": month, "day": day, "gridid": localStorage.gridid },
                 function (data) {
                     if (data[0] == 0) {

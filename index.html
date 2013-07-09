@@ -464,14 +464,13 @@
                         $('#passwordError').css("display", "none");
                         localStorage.gridid = data.gridid;
                         localStorage.first_name = data.first_name;
-                        if (data.account_type = "U")
+                        if (data.account_type == "U")
                             localStorage.last_name = data.last_name;
                         localStorage.email = data.email;
                         localStorage.profile_picture = data.profile_picture;
                         localStorage.password = data.password;
                         localStorage.network = data.network;
                         localStorage.account_type = data.account_type;
-                        alert('network: ' + localStorage.network);
                         alert("Welcome " + localStorage.first_name);
                         window.location = "home.html";
                     }
@@ -547,6 +546,7 @@
                         localStorage.last_name = data.last_name;
                         localStorage.email = data.email;
                         localStorage.password = data.password;
+                        localStorage.network = data.network;
                         localStorage.account_type = data.account_type;
                         alert('Type: ' + localStorage.account_type);
                         alert("Welcome " + localStorage.first_name);
@@ -588,6 +588,7 @@
                         localStorage.last_name = "";
                         localStorage.email = data.email;
                         localStorage.password = data.password;
+                        localStorage.network = data.network;
                         localStorage.account_type = data.account_type;
                         alert("Welcome " + localStorage.first_name);
                         window.location = "home.html";

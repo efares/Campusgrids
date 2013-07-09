@@ -45,13 +45,15 @@
         <div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme="b">
             <img src="img/logo_small.png" class="smallLogo">
             <h1 class="headerTitle">Edit Account</h1>
+            <!-- onclick="document.getElementById('accountForm').submit();" -->
+            <a href="#" class="headerSubmit" id="submitForm" data-icon="check" data-iconpos="left" >Done</a>
             <a id="header" href="#menuPanel" class="ui-btn-right"><i style="font-size: 1.4em;" class="icon-reorder"></i></a>
         </div>
         <!-- /header -->
 
 <!------------------------------- CONTENT ---------------------------------------------------------->
         <div data-role="content" id="content" data-theme="a">
-            <form>
+            <form id="accountForm" method="post" action="settings.html">
                 <p style="font-size: 1.2em; padding-left: 3px; padding-top: 8px;">Pick your School:</p>
                 <fieldset data-role="controlgroup" data-iconpos="right">
                     <input type="radio" name="networkC" id="radio-networkC-6a" value="Algonquin College" checked="checked" />
@@ -76,10 +78,6 @@
                 <label for="passwordU" class="ui-hidden-accessible">Password:</label>
                 <p id="passwordUError" class="error"></p>
                 <input type="password" name="passwordU" id="passwordU" value="" placeholder="Password" onblur="checkPassword($('#passwordU').val(), 'passwordUError');">
-                <div class="ui-grid-a">
-                    <div class="ui-block-a"><a href="#" data-role="button" data-icon="arrow-l" data-iconpos="left" data-inline="true" data-rel="back" class="ui-icon-alt">Back</a></div>
-                    <div class="ui-block-b"><input type="submit" data-inline="true" data-icon="check" data-theme="b" value="Save"/></div>
-                </div>
             </form>
         </div>
 <!------------------------------- END OF CONTENT ---------------------------------------------------------->
@@ -110,6 +108,36 @@
         });
         $('#search-1').blur(function () {
             $('#footer').show();
+        });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.post("editAccount.php", { "func": "retrieveAccount", "gridid": localStorage.gridid },
+                function (data) {
+                    if (data.status == 0) {
+                        alert("ERROR");     // Retrieve error here...
+                        return false;
+                    }
+                    else {
+                        //Display the retrieved interests (tags)
+                        alert(data.func);
+                    }
+                }, "json");
+        });
+
+        $('#submitForm').click(function () {
+            //is(:checked) will return true or false
+            $.post("editAccount.php", { "func": "updateAccount", "gridid": localStorage.gridid },
+                function (data) {
+                    if (data.status == 0) {
+                        alert("ERROR");     // Update error here...
+                        return false;
+                    }
+                    else {
+                        alert(data.func);
+                        //window.location = "settings.html";
+                    }
+                }, "json");
         });
     </script>
 </body>
